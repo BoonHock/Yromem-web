@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Yromem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta&display=swap" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
+
+    <style>
+        .icon_container {
+            position: relative;
+            text-align: center;
+        }
+
+        .lifeline_icon {
+            font-size: 2.5em;
+            vertical-align: middle;
+        }
+
+        .lifeline_clear {
+            position: absolute;
+            font-size: 3.5em;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            color: red;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #payout_table {
+            width: auto;
+            font-size: 1.3em;
+            font-weight: 700;
+            font-family: 'Lexend Zetta', sans-serif;
+        }
+
+        #payout_table td {
+            padding: 0.1em 0.5em;
+            color: #e3901f;
+        }
+
+        #payout_table .active td {
+            background-color: #e3901f;
+            color: #000000;
+        }
+
+        #payout_table td:first-child {
+            text-align: right;
+        }
+
+        /* #payout_table td.answered_col span {
+            visibility: hidden;
+        } */
+        #payout_table tr .material-icons {
+            visibility: hidden;
+            vertical-align: middle;
+        }
+
+        #payout_table tr.active .material-icons,
+        #payout_table tr.answered .material-icons {
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-2 offset-3">
+                <div class="icon_container">
+                    <span class="material-icons lifeline_icon">flaky </span>
+                    <span class="material-icons lifeline_clear">clear</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="icon_container">
+                    <span class="material-icons lifeline_icon"> wifi_protected_setup </span>
+                    <span class="material-icons lifeline_clear">clear</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="icon_container">
+                    <span class="material-icons lifeline_icon"> timer_off </span>
+                    <span class="material-icons lifeline_clear">clear</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table id="payout_table" class="table table-borderless mx-auto">
+                    <tbody>
+                        <tr>
+                            <td>15</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 1 MILLION</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 500,000</td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 250,000</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 125,000</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 64,000</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 32,000</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 16,000</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 8,000</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 4,000</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 2,000</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 1,000</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 500</td>
+                        </tr>
+                        <tr class="active">
+                            <td>3</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 300</td>
+                        </tr>
+                        <tr class="answered">
+                            <td>2</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 200</td>
+                        </tr>
+                        <tr class="answered">
+                            <td>1</td>
+                            <td>
+                                <span class="material-icons">circle</span>
+                            </td>
+                            <td>$ 100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                <a class="hexagon_container topic_link" href="game-payout.html">start</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
