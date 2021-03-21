@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Roboto&display=swap');
+
 html,
 body {
     min-height: 100%;
     color: #f6f6f6;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 a {
     color: #f6f6f6;
@@ -16,18 +18,21 @@ body {
     background-position: center;
 }
 .hexagon_container {
-    display: block;
+    display: flex;
+    align-items: center;
+    width: 400px;
+    max-width: 100%;
+    height: 100px;
     background-image: url('../img/text_hexagon_default.svg');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    font-size: 1.2em;
-    text-align: center;
-    padding: 1.9em;
     text-transform: uppercase;
     font-weight: bold;
     text-decoration: none;
-
+    padding: 0.5em 2em;
+    margin-left: auto;
+    margin-right: auto;
 }
 .hexagon_container:hover,
 .hexagon_container:focus {
@@ -35,6 +40,10 @@ body {
     background-image: url('../img/text_hexagon_selected.svg');
     text-decoration: none;
     color: black;
+}
+.hexagon_nav{
+    font-size: 1.1em;
+    justify-content: center;
 }
 .michroma_font {
     font-family: 'Michroma', sans-serif;
