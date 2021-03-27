@@ -23,7 +23,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center page_header">Chemistry SPM</h1>
+                <h1 id="topic_name" class="text-center page_header"></h1>
             </div>
         </div>
         <div class="row mb-5">
@@ -37,10 +37,38 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <a class="hexagon_container hexagon_nav" href="game-payout.html">start</a>
+                <a id="start_game" class="hexagon_container hexagon_nav mx-auto" href="game-payout.html">START</a>
             </div>
         </div>
     </div>
+    <script src="js/ajax.js"></script>
+    <script>
+        $(document).ready(function () {
+            // https://www.sitepoint.com/get-url-parameters-with-javascript/
+            const urlParams = new URLSearchParams(window.location.search);
+
+            if (!urlParams.has("topic") || !urlParams.has("name")) {
+                // no topic id and topic name
+                window.location.assign("index.html");
+            }
+            else {
+                const topic_id = urlParams.get("topic");
+                const topic_name = urlParams.get("name");
+                $("#topic_name").text(topic_name);
+                $("#start_game").attr("href", "game.html?topic=" + topic_id);
+            }
+
+            // doAjax("get",
+            //     "ajax.php",
+            //     { start_game: topic_id },
+            //     function () { },
+            //     function (response) {
+            //         var questions = JSON.parse(response);
+
+            //         console.log(questions);
+            //     });
+        });
+    </script>
 </body>
 
 </html>

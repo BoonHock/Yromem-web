@@ -28,13 +28,34 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
-                <a class="hexagon_container hexagon_nav" href="game-title.html">
-                    sejarah spm
-                </a>
+            <div class="col-12" id="topic_list">
+                <a class="hexagon_container hexagon_nav mx-auto" data-template="topic" href="game-title.html">sejarah
+                    spm</a>
             </div>
         </div>
     </div>
+    <script src="js/ajax.js"></script>
+    <script>
+        $(document).ready(function () {
+            doAjax("get",
+                "ajax.php?topic",
+                {},
+                function () { },
+                function (response) {
+
+                    var topics = JSON.parse(response);
+                    var template = $('[data-template="topic"]');
+
+                    topics.forEach(function (value, index, array) {
+                        var added = template.clone().appendTo("#topic_list");
+                        added
+                            .removeAttr("data-template")
+                            .attr("href", encodeURI("game-title.html?topic=" + value.topic + "&name=" + value.name))
+                            .text(value.name);
+                    });
+                });
+        });
+    </script>
 </body>
 
 </html>

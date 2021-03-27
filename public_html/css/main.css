@@ -10,6 +10,7 @@ a {
     color: #f6f6f6;
 }
 body {
+    user-select: none;
     padding-top: 30px;
     padding-bottom: 30px;
     background-image: linear-gradient(#131c21, 60%, #50207e);
@@ -17,29 +18,50 @@ body {
     background-size: cover;
     background-position: center;
 }
+[data-template] {
+    display: none !important;
+}
 .hexagon_container {
     display: flex;
     align-items: center;
     width: 400px;
-    max-width: 100%;
     height: 100px;
+    max-width: 100%;
+    max-height: 100%;
     background-image: url('../img/text_hexagon_default.svg');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     font-weight: bold;
     text-decoration: none;
     padding: 0.5em 2em;
-    margin-left: auto;
-    margin-right: auto;
-}
-.hexagon_container:hover,
-.hexagon_container:focus {
+    user-select: none;
     cursor: pointer;
-    background-image: url('../img/text_hexagon_selected.svg');
+}
+.hexagon_container.selected,
+.hexagon_container:hover:before,
+.hexagon_container:hover{
     text-decoration: none;
     color: black;
+}
+.hexagon_container.selected,
+.hexagon_container:not(.correct):hover,
+.hexagon_container:not(.correct):focus {
+    background-image: url('../img/text_hexagon_selected.svg');
+}
+.hexagon_container.correct{
+    animation-name: flash_correct;
+    animation-duration: 0.3s;
+    animation-iteration-count: 3;
+    animation-fill-mode: forwards;
+    /* animation: flash_correct 1s linear 4s; */
+}
+@keyframes flash_correct {
+    100% {
+        color: black;
+        background-image: url('../img/text_hexagon_correct.svg');
+    }
 }
 .hexagon_nav{
     font-size: 1.1em;
@@ -51,4 +73,23 @@ body {
 .page_header {
     font-family: 'Michroma', sans-serif;
     margin-bottom: 1.2em;
+}
+.larger_text{
+    font-size: 1.5em;
+}
+
+.vertical_align_content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flashing {
+    animation: flasher 1.5s linear infinite;
+}
+
+@keyframes flasher {
+    50% {
+        opacity: 0;
+    }
 }
