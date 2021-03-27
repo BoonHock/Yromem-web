@@ -6,6 +6,10 @@ function doAjax(getPost, url, data, doBefore, doSuccess) {
 		xhr = null;
 	}
 
+	if (window.location.host != "localhost") {
+		url = "https://incupedev.000webhostapp.com/" + url
+	}
+
 	xhr = $.ajax({
 		type: getPost,
 		url: url,
