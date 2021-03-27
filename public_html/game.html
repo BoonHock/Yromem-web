@@ -36,14 +36,21 @@
             display: inline-flex;
             border: 2px solid white;
             border-radius: 50%;
-            width: 100px;
-            height: 50px;
+            width: 60px;
+            height: 30px;
             align-items: center;
             justify-content: center;
             margin-left: 5px;
             margin-right: 5px;
             background-color: #040526;
             /* background-image: linear-gradient(#2c2f4e, #663694, #2c2f4e); */
+        }
+
+        @media (min-width: 768px) {
+            .lifeline {
+                width: 100px;
+                height: 50px;
+            }
         }
 
         .lifeline_button:not(.lifeline_used):hover {
@@ -70,15 +77,27 @@
         }
 
         .lifeline_icon {
-            font-size: 2.5em;
+            font-size: 1.2em;
             vertical-align: middle;
+        }
+
+        @media (min-width: 768px) {
+            .lifeline_icon {
+                font-size: 2.5em;
+            }
         }
 
         #payout_table {
             width: auto;
-            font-size: 1.3em;
+            font-size: 0.9em;
             font-weight: 700;
             font-family: 'Lexend Zetta', sans-serif;
+        }
+
+        @media (min-width: 768px) {
+            #payout_table {
+                font-size: 1.3em;
+            }
         }
 
         #payout_table td {
@@ -113,11 +132,31 @@
             align-items: center;
             background-color: #040526;
             border: 2px solid #f6f6f6;
-            margin-left: 1em;
-            margin-right: 1em;
-            padding: 2em;
-            font-size: 1.2em;
-            min-height: 150px;
+            padding: 0.7em;
+        }
+
+        .question_text,
+        .answer_button {
+            font-size: 0.9em;
+        }
+
+        .answer_button.long_answer {
+            font-size: 0.8em;
+        }
+
+        @media (min-width: 768px) {
+            .question_text {
+                margin-left: 1em;
+                margin-right: 1em;
+                padding: 2em;
+                font-size: 1.2em;
+                min-height: 150px;
+            }
+
+            .question_text,
+            .answer_button {
+                font-size: 1em;
+            }
         }
 
         .answer_button:before {
@@ -165,8 +204,32 @@
 
         .base-timer {
             position: relative;
-            width: 100px;
-            height: 100px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .base-timer__label {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+        }
+
+        @media (min-width: 768px) {
+            .base-timer {
+                width: 100px;
+                height: 100px;
+            }
+
+            .base-timer__label {
+                width: 100px;
+                height: 100px;
+                font-size: 1.5em;
+            }
         }
 
         .base-timer__svg {
@@ -203,17 +266,6 @@
 
         .base-timer__path-remaining.red {
             color: #dc3545;
-        }
-
-        .base-timer__label {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            top: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
         }
     </style>
 </head>
@@ -458,6 +510,11 @@
 
             for (var i = 0; i < answers.length; i++) {
                 $('#answer' + i + '>.answer_text').text(answers[i]);
+
+                // if answer text too long, need to shrink font size
+                if (answers[i].length > 65) {
+                    $('#answer' + i).addClass('long_answer');
+                }
             }
         }
 
@@ -509,6 +566,8 @@
         function reset_game_layout() {
             $('.answer_button')
                 .removeClass('selected correct lifeline_5050_hide');
+
+            $('.long_answer').removeClass('long_answer');
         }
 
         $(document).ready(function () {
@@ -540,6 +599,8 @@
 
                     $('#loading').remove();
                     $('#continue_game').removeClass('d-none');
+
+                    $('#continue_game').trigger('click');
                 });
 
             $('#continue_game').on('click', function () {
