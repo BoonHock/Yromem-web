@@ -547,7 +547,9 @@
         function show_payout(is_correct, question_index) {
             $(document).off('click');
 
-            if (is_correct) {
+            // question 15 means win d
+            // TODO: MAKE A WIN PAGE!
+            if (is_correct && question_index < 15) {
                 update_payout_table(question_index)
             }
             else {
