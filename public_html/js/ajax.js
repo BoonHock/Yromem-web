@@ -10,6 +10,8 @@ function doAjax(getPost, url, data, doBefore, doSuccess) {
 		url = "https://incupedev.000webhostapp.com/" + url
 	}
 
+	console.log(url);
+
 	xhr = $.ajax({
 		type: getPost,
 		url: url,

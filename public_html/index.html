@@ -42,6 +42,7 @@
                 {},
                 function () { },
                 function (response) {
+                    console.log(response);
 
                     var topics = JSON.parse(response);
                     var template = $('[data-template="topic"]');
