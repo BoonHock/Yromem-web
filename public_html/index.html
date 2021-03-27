@@ -17,7 +17,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link href="css/main.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -42,8 +41,6 @@
                 {},
                 function () { },
                 function (response) {
-                    console.log(response);
-
                     var topics = JSON.parse(response);
                     var template = $('[data-template="topic"]');
 
