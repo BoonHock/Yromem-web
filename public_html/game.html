@@ -271,8 +271,46 @@
 </head>
 
 <body>
+    <div id="btn_music" class="music_on">
+        <span id="music_on" class="material-icons">music_note</span>
+        <span id="music_off" class="material-icons">music_off</span>
+        <div class="d-none">
+            <audio src="audio/main_theme.mp3" preload="auto"></audio>
+            <audio src="audio/lets_play.mp3" preload="auto"></audio>
+            <audio src="audio/1_5.mp3" loop preload="auto"></audio>
+            <audio src="audio/6_10.mp3" loop preload="auto"></audio>
+            <audio src="audio/11.mp3" loop preload="auto"></audio>
+            <audio src="audio/12_13.mp3" loop preload="auto"></audio>
+            <audio src="audio/14.mp3" loop preload="auto"></audio>
+            <audio src="audio/15.mp3" loop preload="auto"></audio>
+            <audio src="audio/correct_answer.mp3" preload="auto"></audio>
+            <audio src="audio/wrong_answer.mp3" preload="auto"></audio>
+            <audio src="audio/short_intro.mp3" preload="auto"></audio>
+        </div>
+    </div>
     <div id="navigate_to_payout_overlay" class="d-none"></div>
-    <div class="container">
+    <div id="game_title_container" class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 id="topic_name" class="text-center page_header"></h1>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-12">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="start_game" class="hexagon_container hexagon_nav mx-auto">START</div>
+            </div>
+        </div>
+    </div>
+    <div id="game_container" class="container" style="display: none;">
         <div id="payout_layout">
             <div class="row mb-3">
                 <div class="col-12 text-center">
@@ -388,9 +426,9 @@
                 <div class="col-12">
                     <p id="loading" class="text-center michroma_font larger_text mt-4 flashing">Loading...</p>
                     <div id="continue_game" class="hexagon_container hexagon_nav mx-auto d-none">CONTINUE</div>
-                    <a id="new_game" class="hexagon_container hexagon_nav mx-auto d-none game_over_button">
+                    <div id="new_game" class="hexagon_container hexagon_nav mx-auto d-none game_over_button">
                         NEW GAME
-                    </a>
+                    </div>
                     <a class="hexagon_container hexagon_nav mx-auto d-none game_over_button" href="index.html">
                         MAIN MENU
                     </a>
@@ -454,6 +492,10 @@
             </div>
         </div>
     </div>
+    <!-- preload images -->
+    <img src="img/text_hexagon_selected.svg" class="d-none">
+    <img src="img/text_hexagon_correct.svg" class="d-none">
+
     <script src="js/ajax.js"></script>
     <script src="js/timer.js"></script>
     <script>
@@ -556,7 +598,7 @@
                 // current question answered wrongly. highlight previous reward
                 update_payout_table(question_index - 1);
 
-                $('#continue_game').remove();
+                $('#continue_game').addClass('d-none');
                 $('.game_over_button').removeClass('d-none');
             }
             $('#game_layout').fadeOut(function () {
@@ -572,8 +614,71 @@
             $('.long_answer').removeClass('long_answer');
         }
 
+        function play_music(filename_wo_extension, require_reset, onEnd) {
+            if ($('#btn_music').hasClass('music_off')) {
+                return;
+            }
+
+            var playing_audio = null;
+
+            $('#btn_music audio').each(function (index, elem) {
+                if (!elem.pause) {
+                    playing_audio = $(elem);
+                }
+            });
+            var audio = $('#btn_music audio[src="audio/' + filename_wo_extension + '.mp3"]');
+
+            console.log(playing_audio);
+            console.log(audio);
+            if (audio == playing_audio) {
+                return;
+            }
+
+            pause_all_music();
+
+            if (audio.length > 0) {
+                if (require_reset) {
+                    audio[0].currentTime = 0;
+                }
+                audio[0].play();
+
+                if (onEnd != null) {
+                    audio.on('ended', function () {
+                        onEnd();
+                    });
+                }
+            }
+        }
+
+        function pause_all_music() {
+            $('#btn_music audio').each(function (index, elem) {
+                $(elem).off('ended');
+                elem.pause();
+            });
+        }
+
+        function play_music_based_on_question_index(question_index, require_reset) {
+            if (question_index < 5) {
+                play_music('1_5', require_reset);
+            }
+            else if (question_index < 10) {
+                play_music('6_10', require_reset);
+            }
+            else if (question_index < 11) {
+                play_music('11', require_reset);
+            }
+            else if (question_index < 13) {
+                play_music('12_13', require_reset);
+            }
+            else if (question_index < 14) {
+                play_music('14', require_reset);
+            }
+            else if (question_index == 14) {
+                play_music('15', require_reset);
+            }
+        }
+
         $(document).ready(function () {
-            const urlParams = new URLSearchParams(window.location.search);
             var used_lifeline = [];
             var CurrentQuestion;
             var question_index = 0;
@@ -581,29 +686,45 @@
             var spare_question;
             var timer;
 
-            if (!urlParams.has("topic")) {
-                // no topic id
+            const urlParams = new URLSearchParams(window.location.search);
+            if (!urlParams.has("topic") || !urlParams.has("name")) {
+                // no topic id and topic name
                 window.location.assign("index.html");
             }
 
-            // refresh the page for new game
-            $("#new_game").attr("href", window.location.href);
+            const topic_name = urlParams.get("name");
+            $("#topic_name").text(topic_name);
 
             update_payout_table(question_index);
 
-            doAjax("get",
-                "ajax.php",
-                { start_game: urlParams.get("topic") },
-                function () { },
-                function (response) {
-                    questions = JSON.parse(response);
-                    spare_question = questions.pop();
+            $('#start_game').on('click', function () {
+                reset_game();
+                play_music('short_intro', true, function () { play_music('1_5', true); });
+                $('#game_title_container').fadeOut(function () {
+                    $('#game_container').fadeIn(function () {
+                        doAjax("get",
+                            "ajax.php",
+                            { start_game: urlParams.get("topic") },
+                            function () { },
+                            function (response) {
+                                questions = JSON.parse(response);
+                                spare_question = questions.pop();
 
-                    $('#loading').remove();
-                    $('#continue_game').removeClass('d-none');
+                                $('#loading').addClass('d-none');
+                                $('#continue_game').removeClass('d-none');
+                            });
+                    });
                 });
+            });
 
             $('#continue_game').on('click', function () {
+                if (question_index == 0) {
+                    play_music('lets_play', true, function () { play_music('1_5', true); });
+                }
+                else {
+                    play_music_based_on_question_index(question_index);
+                }
+
                 if (questions.length == 0) {
                     alert('No questions for this topic...');
                 } else {
@@ -616,6 +737,13 @@
 
                     show_game(CurrentQuestion, timer);
                 }
+            });
+
+            $("#new_game").on('click', function () {
+                play_music('main_theme', true);
+                $('#game_container').fadeOut(function () {
+                    $('#game_title_container').fadeIn();
+                });
             });
 
             $('.answer_button').on('click', function () {
@@ -680,6 +808,15 @@
                         }
                     });
 
+                    if (is_correct) {
+                        play_music('correct_answer',
+                            true,
+                            function () { play_music_based_on_question_index(question_index); })
+                    }
+                    else {
+                        play_music('wrong_answer', true)
+                    }
+
                     setTimeout(() => {
                         // show overlay so that all items behind blocked and answer buttons won't show hover pattern
                         $('#click_to_continue').removeClass('d-none');
@@ -691,6 +828,29 @@
 
                 }, 1000);
             }
+
+            function reset_game() {
+                used_lifeline = [];
+                CurrentQuestion = null;
+                question_index = 0;
+                $('#continue_game').addClass('d-none');
+                $('.game_over_button').addClass('d-none');
+                $('#loading').removeClass('d-none');
+
+                update_payout_table(0);
+            }
+
+            $('#btn_music').on('click', function () {
+                var btn_music = $(this);
+                if (btn_music.hasClass('music_on')) {
+                    btn_music.removeClass('music_on').addClass('music_off');
+                    pause_all_music();
+                } else {
+                    btn_music.removeClass('music_off').addClass('music_on');
+                    play_music_based_on_question_index(question_index);
+
+                }
+            });
         });
     </script>
 </body>

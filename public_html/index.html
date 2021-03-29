@@ -17,9 +17,35 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link href="css/main.css" rel="stylesheet">
+
+    <style>
+        #topic_list.loaded>#loading {
+            display: none;
+        }
+
+        #topic_list.loaded {
+            animation-name: slide_into_view;
+            animation-duration: 0.6s;
+            animation-fill-mode: forwards;
+            animation-direction: reverse;
+            /* ease in because animation direction is reversed */
+            animation-timing-function: ease-in;
+        }
+
+        @keyframes slide_into_view {
+            100% {
+                margin-top: 200px;
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- <div id="btn_music" class="music_on">
+        <span id="music_on" class="material-icons">music_note</span>
+        <span id="music_off" class="material-icons">music_off</span>
+    </div> -->
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -28,29 +54,60 @@
         </div>
         <div class="row">
             <div class="col-12" id="topic_list">
-                <a class="hexagon_container hexagon_nav mx-auto" data-template="topic" href="game-title.html">sejarah
-                    spm</a>
+                <p id="loading" class="text-center michroma_font larger_text mt-4 flashing">Loading...</p>
+                <a class="hexagon_container hexagon_nav mx-auto" data-template="topic" href="game-title.html"></a>
             </div>
         </div>
     </div>
+    <!-- <audio id="bg_music" class="d-none" loop controls></audio> -->
+    <!-- preload images -->
+    <img src="img/text_hexagon_selected.svg" class="d-none">
     <script src="js/ajax.js"></script>
     <script>
         $(document).ready(function () {
+            // $('#btn_music').on('click', function () {
+
+            //     var btn_music = $(this);
+            //     if (btn_music.hasClass('music_on')) {
+            //         btn_music.removeClass('music_on').addClass('music_off')
+            //         $('#bg_music')[0].pause();
+            //     } else {
+            //         btn_music.removeClass('music_off').addClass('music_on')
+            //         $('#bg_music')[0].play();
+            //     }
+            // });
+            // after page ready for some time only play bg music. otherwise sometimes wont play
+            // setTimeout(() => {
+            //     $('#bg_music').attr('src', 'audio/1_5.mp3');
+
+            //     setTimeout(() => {
+            //         if ($('#bg_music')[0].paused) {
+            //             $('#btn_music').trigger('click');
+            //         }
+            //     }, 100);
+            // }, 1000);
+
             doAjax("get",
                 "ajax.php?topic",
                 {},
                 function () { },
                 function (response) {
-                    var topics = JSON.parse(response);
+                    $('#loading').remove();
+
                     var template = $('[data-template="topic"]');
+                    var topic_list_div = $('#topic_list');
+
+                    var topics = JSON.parse(response);
 
                     topics.forEach(function (value, index, array) {
-                        var added = template.clone().appendTo("#topic_list");
+                        var added = template.clone().appendTo(topic_list_div);
                         added
                             .removeAttr("data-template")
-                            .attr("href", encodeURI("game-title.html?topic=" + value.topic + "&name=" + value.name))
+                            .attr("href", encodeURI("game.html?topic=" + value.topic + "&name=" + value.name))
                             .text(value.name);
                     });
+
+                    topic_list_div.addClass('loaded');
                 });
         });
     </script>

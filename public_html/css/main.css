@@ -131,3 +131,29 @@ body {
         opacity: 0;
     }
 }
+
+#btn_music {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 16px;
+    margin-right: 16px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+#btn_music.music_on>#music_on {
+    display: inline-block;
+}
+
+#btn_music.music_on>#music_off {
+    display: none;
+}
+
+#btn_music.music_off>#music_on {
+    display: none;
+}
+
+#btn_music.music_off>#music_off {
+    display: inline-block;
+}

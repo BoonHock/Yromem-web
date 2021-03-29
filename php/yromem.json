@@ -1,0 +1,353 @@
+{
+    "topic": "World General Knowledge",
+    "0": {
+        "q": "What animal has a distinctive scent mark that smells like popcorn?",
+        "a0": "Binturong",
+        "a1": "Otter",
+        "a2": "Badger",
+        "a3": "Ring Tailer Lemur"
+    },
+    "1": {
+        "q": "How many types of flamingo are there?",
+        "a0": "6",
+        "a1": "4",
+        "a2": "5",
+        "a3": "3"
+    },
+    "2": {
+        "q": "Which big cat can run the fastest?",
+        "a0": "Cheetah",
+        "a1": "Tiger",
+        "a2": "Leopard",
+        "a3": "Lion"
+    },
+    "3": {
+        "q": "What is a baby dolphin called?",
+        "a0": "Calf",
+        "a1": "Pup",
+        "a2": "Kitten",
+        "a3": "Foal"
+    },
+    "4": {
+        "q": "What is a group of rats called?",
+        "a0": "A mischief",
+        "a1": "A chaos",
+        "a2": "A pack",
+        "a3": "A destruction"
+    },
+    "5": {
+        "q": "How many Sri Lankan Leopards are there left in the wild?",
+        "a0": "1,000",
+        "a1": "5,000",
+        "a2": "10,000",
+        "a3": "20,000"
+    },
+    "6": {
+        "q": "what is the most popular pet in the UK?",
+        "a0": "Dogs",
+        "a1": "Cats",
+        "a2": "Rabbits",
+        "a3": "Goldfish"
+    },
+    "7": {
+        "q": "How tall can an Emperor Penguin grow to?",
+        "a0": "120cm",
+        "a1": "110cm",
+        "a2": "100cm",
+        "a3": "130cm"
+    },
+    "8": {
+        "q": "Which animal can live to 70 years old?",
+        "a0": "African Elephant",
+        "a1": "Gorilla",
+        "a2": "Rhino",
+        "a3": "Orangutan"
+    },
+    "9": {
+        "q": "How many breeds of Gecko are there?",
+        "a0": "1,500",
+        "a1": "500",
+        "a2": "1,000",
+        "a3": "200"
+    },
+    "10": {
+        "q": "Who was the first actor to play James Bond?",
+        "a0": "Sean Connery",
+        "a1": "George Lazenby",
+        "a2": "Roger Moore",
+        "a3": "Timothy Dalton"
+    },
+    "11": {
+        "q": "Who voices Elsa in Frozen?",
+        "a0": "Idina Menzel",
+        "a1": "Auli'I Cravalho",
+        "a2": "Mandy Moore",
+        "a3": "Kriten Bell"
+    },
+    "12": {
+        "q": "How many Ice Age films have there been?",
+        "a0": "6",
+        "a1": "4",
+        "a2": "2",
+        "a3": "8"
+    },
+    "13": {
+        "q": "What is the top grossing film of all time?",
+        "a0": "Avengers: Endgame",
+        "a1": "Avatar",
+        "a2": "Titanic",
+        "a3": "Jurassic Park"
+    },
+    "14": {
+        "q": "Who directed Jaws?",
+        "a0": "Steven Spielberg",
+        "a1": "Quentin Tarantino",
+        "a2": "Tim Burton",
+        "a3": "Martin Scorsese"
+    },
+    "15": {
+        "q": "What colour are Smurfs?",
+        "a0": "Blue",
+        "a1": "Yellow",
+        "a2": "Green ",
+        "a3": "Red"
+    },
+    "16": {
+        "q": "What is the name of the Pink Troll in Troll?",
+        "a0": "Poppy",
+        "a1": "Lily",
+        "a2": "Rose",
+        "a3": "Tulip"
+    },
+    "17": {
+        "q": "In which year was Dirty Dancing released?",
+        "a0": "1987",
+        "a1": "1985",
+        "a2": "1983",
+        "a3": "1989"
+    },
+    "18": {
+        "q": "Who plays Jack Sparrow in Pirates of the Caribbean?",
+        "a0": "Johnny Depp",
+        "a1": "Tom Hardy",
+        "a2": "Christ Evans",
+        "a3": "Orlando Bloom"
+    },
+    "19": {
+        "q": "Which US President appeared in Home Alone 2?",
+        "a0": "Donald Trump",
+        "a1": "Bill Clinton",
+        "a2": "Barrack Obama",
+        "a3": "Bush Washington"
+    },
+    "20": {
+        "q": "How many band members are there in The 1975?",
+        "a0": "4",
+        "a1": "3",
+        "a2": "5",
+        "a3": "6"
+    },
+    "21": {
+        "q": "Who sings \"Rain on Me\" with Lady Gaga?",
+        "a0": "Ariana Grande",
+        "a1": "Nicki Minaj",
+        "a2": "Miley Cyrus",
+        "a3": "Selena Gomez"
+    },
+    "22": {
+        "q": "Who is the youngest member of Little Mix?",
+        "a0": "Perrie",
+        "a1": "Jade",
+        "a2": "Jesy",
+        "a3": "Leigh-Anna"
+    },
+    "23": {
+        "q": "What was the top selling song of 2019?",
+        "a0": "Someone You Loved",
+        "a1": "I Don't Care",
+        "a2": "Old Town Road",
+        "a3": "Bad Guy"
+    },
+    "24": {
+        "q": "How old is Kylie Minogue?",
+        "a0": "52",
+        "a1": "47",
+        "a2": "40",
+        "a3": "55"
+    },
+    "25": {
+        "q": "Which year did James Arthur win The X-Factor?",
+        "a0": "2012",
+        "a1": "2010",
+        "a2": "2014",
+        "a3": "2016"
+    },
+    "26": {
+        "q": "Which singer has three children?",
+        "a0": "Beyonce",
+        "a1": "Christina Aguilera",
+        "a2": "P!NK",
+        "a3": "Katy Perry"
+    },
+    "27": {
+        "q": "Which female rappers real name is Belcalis Marlenis Alm\u00e1nzar?",
+        "a0": "Cardi B",
+        "a1": "Doja Cat.",
+        "a2": "Nicki Minaj",
+        "a3": "Megan Thee Stallion"
+    },
+    "28": {
+        "q": "What was the name of Ed Sheeran's first studio album?",
+        "a0": "Plus",
+        "a1": "Multiply",
+        "a2": "Divide",
+        "a3": "Minus"
+    },
+    "29": {
+        "q": "Where is Stormzy from?",
+        "a0": "Croyden",
+        "a1": "Stratford",
+        "a2": "Harrow",
+        "a3": "Hounslow"
+    },
+    "30": {
+        "q": "What is the longest river in the world?",
+        "a0": "The Nile",
+        "a1": "The Amazon",
+        "a2": "The Congo",
+        "a3": "The Yangtze"
+    },
+    "31": {
+        "q": "How tall is Mount Everest?",
+        "a0": "8,850 meters",
+        "a1": "5,600 meters",
+        "a2": "12,350 meters",
+        "a3": "15,000 meters"
+    },
+    "32": {
+        "q": "What is the capital of Australia?",
+        "a0": "Canberra",
+        "a1": "Brisbane",
+        "a2": "Perth",
+        "a3": "Sydney"
+    },
+    "33": {
+        "q": "What is the population of the UK? (2019)",
+        "a0": "66.65 million",
+        "a1": "52.73 million",
+        "a2": "74.27 million",
+        "a3": "89.45 million"
+    },
+    "34": {
+        "q": "Where is Transylvania?",
+        "a0": "Romania",
+        "a1": "Croatia",
+        "a2": "Bulgaria",
+        "a3": "Hungary"
+    },
+    "35": {
+        "q": "How long is the River Thames?",
+        "a0": "215 miles",
+        "a1": "175 miles",
+        "a2": "261 miles",
+        "a3": "308 miles"
+    },
+    "36": {
+        "q": "What country has the biggest population?",
+        "a0": "China",
+        "a1": "India",
+        "a2": "Russia",
+        "a3": "America"
+    },
+    "37": {
+        "q": "What is the tallest building in the world?",
+        "a0": "Burj Khalifa",
+        "a1": "Shanghai Tower",
+        "a2": "Makkah Royal Clock Tower",
+        "a3": "One World Trade Center"
+    },
+    "38": {
+        "q": "What is the lowest temperature ever recorded in the North Pole?",
+        "a0": "-68C",
+        "a1": "-47C",
+        "a2": "-94C",
+        "a3": "-78C"
+    },
+    "39": {
+        "q": "How many inhabited Islands does the UK have?",
+        "a0": "136",
+        "a1": "86",
+        "a2": "186",
+        "a3": "256"
+    },
+    "40": {
+        "q": "Which team does Marcus Rashford play for?",
+        "a0": "Manchester United",
+        "a1": "Liverpool",
+        "a2": "Arsenal",
+        "a3": "Manchester City"
+    },
+    "41": {
+        "q": "Who is captain of the English Rugby team?",
+        "a0": "Owen Farrell",
+        "a1": "George Ford",
+        "a2": "Ben Youngs",
+        "a3": "Anthony Watson"
+    },
+    "42": {
+        "q": "Who is ranked as the best tennis player in the world?",
+        "a0": "Novak Djokovic",
+        "a1": "Dominic Thiem",
+        "a2": "Rafael Nadal",
+        "a3": "Roger Federer"
+    },
+    "43": {
+        "q": "How old is Lewis Hamilton?",
+        "a0": "35",
+        "a1": "32",
+        "a2": "38",
+        "a3": "43"
+    },
+    "44": {
+        "q": "Who won the 2018 football World Cup?",
+        "a0": "France",
+        "a1": "Germany",
+        "a2": "England",
+        "a3": "UK"
+    },
+    "45": {
+        "q": "Ben Stokes made his Test debut for England in which year?",
+        "a0": "2013",
+        "a1": "2012",
+        "a2": "2014",
+        "a3": "2015"
+    },
+    "46": {
+        "q": "The first FIFA World Cup was held in which year?",
+        "a0": "1930",
+        "a1": "1926",
+        "a2": "1922",
+        "a3": "1934"
+    },
+    "47": {
+        "q": "How many gold medals did Great Britain win in the 2012 Olympics?",
+        "a0": "29",
+        "a1": "34",
+        "a2": "23",
+        "a3": "36"
+    },
+    "48": {
+        "q": "How many balls are in total are there on the table at the start of a game of snooker?",
+        "a0": "22",
+        "a1": "21",
+        "a2": "20",
+        "a3": "23"
+    },
+    "49": {
+        "q": "How many players are there in a rugby team?",
+        "a0": "15",
+        "a1": "11",
+        "a2": "13",
+        "a3": "9"
+    }
+}
