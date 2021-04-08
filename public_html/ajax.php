@@ -4,7 +4,7 @@
 require_once '../php/conn.php';
 
 if (isset($_GET["topic"])) {
-    $query = $conn->prepare("SELECT topic, name FROM topic");
+    $query = $conn->prepare("SELECT topic_id, topic FROM topic");
     $query->execute([]);
     echo json_encode($query->fetchAll(PDO::FETCH_ASSOC));
 } elseif (!empty($_GET['start_game'])) {
@@ -20,7 +20,7 @@ if (isset($_GET["topic"])) {
     FROM question
 
     JOIN topic
-    ON question.topic_id = topic.topic
+    ON question.topic_id = topic.topic_id
 
     WHERE question.topic_id = (?)
     ORDER BY RAND()

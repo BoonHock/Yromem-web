@@ -2,9 +2,29 @@
 <html>
 
 <head>
-    <title>Yromem</title>
+    <title>Game</title>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has("topic") || !urlParams.has("tid")) {
+            // no topic id and topic name
+            window.location.assign("index.html");
+        }
+
+        const topic_name = urlParams.get("topic");
+        document.title = topic_name;
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZP4LTMX13J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZP4LTMX13J');
+    </script> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -268,26 +288,44 @@
             color: #dc3545;
         }
     </style>
+    <style>
+        #millionaire_win {
+            z-index: 99;
+        }
+
+        #millionaire_win,
+        #win_banner_container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        #win_banner {
+            display: block;
+            background-color: red;
+            width: 100%;
+            text-align: center;
+            font-size: 2.5em;
+            padding-top: 1.5em;
+            padding-bottom: 1.5em;
+            /* -webkit-text-stroke: 0.01px black; */
+            font-weight: 900;
+            background: radial-gradient(#8a5fb3, #3a579c, #4f1881);
+        }
+
+        #close_win_banner {
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            right: 0;
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="btn_music" class="music_on">
-        <span id="music_on" class="material-icons">music_note</span>
-        <span id="music_off" class="material-icons">music_off</span>
-        <div class="d-none">
-            <audio src="audio/main_theme.mp3" preload="auto"></audio>
-            <audio src="audio/lets_play.mp3" preload="auto"></audio>
-            <audio src="audio/1_5.mp3" loop preload="auto"></audio>
-            <audio src="audio/6_10.mp3" loop preload="auto"></audio>
-            <audio src="audio/11.mp3" loop preload="auto"></audio>
-            <audio src="audio/12_13.mp3" loop preload="auto"></audio>
-            <audio src="audio/14.mp3" loop preload="auto"></audio>
-            <audio src="audio/15.mp3" loop preload="auto"></audio>
-            <audio src="audio/correct_answer.mp3" preload="auto"></audio>
-            <audio src="audio/wrong_answer.mp3" preload="auto"></audio>
-            <audio src="audio/short_intro.mp3" preload="auto"></audio>
-        </div>
-    </div>
     <div id="navigate_to_payout_overlay" class="d-none"></div>
     <div id="game_title_container" class="container">
         <div class="row">
@@ -492,6 +530,31 @@
             </div>
         </div>
     </div>
+
+    <div id="millionaire_win" class="d-none">
+        <div id="win_banner_container" class="vertical_align_content">
+            <div id="win_banner" class="michroma_font">MILLIONAIRE</div>
+        </div>
+        <div id="close_win_banner" class="hexagon_container hexagon_nav mx-auto">CLOSE</div>
+    </div>
+    <div id="btn_music" class="music_off">
+        <span id="music_on" class="material-icons">music_note</span>
+        <span id="music_off" class="material-icons">music_off</span>
+        <div class="d-none">
+            <audio src="audio/main_theme.mp3" preload="auto"></audio>
+            <audio src="audio/lets_play.mp3" preload="auto"></audio>
+            <audio src="audio/1_5.mp3" loop preload="auto"></audio>
+            <audio src="audio/6_10.mp3" loop preload="auto"></audio>
+            <audio src="audio/11.mp3" loop preload="auto"></audio>
+            <audio src="audio/12_13.mp3" loop preload="auto"></audio>
+            <audio src="audio/14.mp3" loop preload="auto"></audio>
+            <audio src="audio/15.mp3" loop preload="auto"></audio>
+            <audio src="audio/correct_answer.mp3" preload="auto"></audio>
+            <audio src="audio/wrong_answer.mp3" preload="auto"></audio>
+            <audio src="audio/short_intro.mp3" preload="auto"></audio>
+        </div>
+    </div>
+
     <!-- preload images -->
     <img src="img/text_hexagon_selected.svg" class="d-none">
     <img src="img/text_hexagon_correct.svg" class="d-none">
@@ -590,13 +653,14 @@
             $(document).off('click');
 
             // question 15 means win d
-            // TODO: MAKE A WIN PAGE!
             if (is_correct && question_index < 15) {
                 update_payout_table(question_index)
             }
             else {
-                // current question answered wrongly. highlight previous reward
-                update_payout_table(question_index - 1);
+                if (!is_correct) {
+                    // if question answered wrongly. highlight previous reward
+                    update_payout_table(question_index - 1);
+                }
 
                 $('#continue_game').addClass('d-none');
                 $('.game_over_button').removeClass('d-none');
@@ -628,8 +692,6 @@
             });
             var audio = $('#btn_music audio[src="audio/' + filename_wo_extension + '.mp3"]');
 
-            console.log(playing_audio);
-            console.log(audio);
             if (audio == playing_audio) {
                 return;
             }
@@ -679,20 +741,25 @@
         }
 
         $(document).ready(function () {
+            $('audio').each(function (index, elem) {
+                // lower the volume. default is full volume which is very loud
+                elem.volume = 0.5;
+            });
+
             var used_lifeline = [];
             var CurrentQuestion;
-            var question_index = 0;
+            var question_index = 14;
             var questions = [];
             var spare_question;
             var timer;
 
             const urlParams = new URLSearchParams(window.location.search);
-            if (!urlParams.has("topic") || !urlParams.has("name")) {
+            if (!urlParams.has("topic") || !urlParams.has("tid")) {
                 // no topic id and topic name
                 window.location.assign("index.html");
             }
 
-            const topic_name = urlParams.get("name");
+            const topic_name = urlParams.get("topic");
             $("#topic_name").text(topic_name);
 
             update_payout_table(question_index);
@@ -704,7 +771,7 @@
                     $('#game_container').fadeIn(function () {
                         doAjax("get",
                             "ajax.php",
-                            { start_game: urlParams.get("topic") },
+                            { start_game: urlParams.get("tid") },
                             function () { },
                             function (response) {
                                 questions = JSON.parse(response);
@@ -736,6 +803,10 @@
                     });
 
                     show_game(CurrentQuestion, timer);
+
+                    // gtag('event', 'play_game', {
+                    //     'event_label': 'q' + question_index
+                    // });
                 }
             });
 
@@ -789,6 +860,10 @@
                 }
             });
 
+            $('#close_win_banner').on('click', function (e) {
+                $('#millionaire_win').addClass('d-none');
+            });
+
             function end_question() {
                 CurrentQuestion.answered = true;
                 $('#navigate_to_payout_overlay').removeClass('d-none');
@@ -809,9 +884,15 @@
                     });
 
                     if (is_correct) {
-                        play_music('correct_answer',
-                            true,
-                            function () { play_music_based_on_question_index(question_index); })
+                        if (question_index == 15) {
+                            $('#millionaire_win').removeClass('d-none');
+                            play_music('main_theme', true);
+                        }
+                        else {
+                            play_music('correct_answer',
+                                true,
+                                function () { play_music_based_on_question_index(question_index); })
+                        }
                     }
                     else {
                         play_music('wrong_answer', true)
@@ -822,7 +903,11 @@
                         $('#click_to_continue').removeClass('d-none');
 
                         $(document).on('click', function () {
-                            show_payout(is_correct, question_index);
+                            if ($('#millionaire_win').hasClass('d-none')) {
+                                // if millionaire banner showing, dont navigate to payout.
+                                // let user manually close that first
+                                show_payout(is_correct, question_index);
+                            }
                         });
                     }, 2000);
 

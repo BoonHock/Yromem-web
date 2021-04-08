@@ -2,9 +2,19 @@
 <html>
 
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZP4LTMX13J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZP4LTMX13J');
+    </script> -->
     <title>Yromem</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -42,10 +52,6 @@
 </head>
 
 <body>
-    <!-- <div id="btn_music" class="music_on">
-        <span id="music_on" class="material-icons">music_note</span>
-        <span id="music_off" class="material-icons">music_off</span>
-    </div> -->
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -103,8 +109,8 @@
                         var added = template.clone().appendTo(topic_list_div);
                         added
                             .removeAttr("data-template")
-                            .attr("href", encodeURI("game.html?topic=" + value.topic + "&name=" + value.name))
-                            .text(value.name);
+                            .attr("href", encodeURI("game.html?topic=" + value.topic + "&tid=" + value.topic_id))
+                            .text(value.topic);
                     });
 
                     topic_list_div.addClass('loaded');
