@@ -1,5 +1,7 @@
 <?php
 
+require_once '../php/conn.php';
+
 if (isset($_GET["topic"])) {
     $query = $conn->prepare("SELECT topic_id, topic FROM topic");
     $query->execute([]);
