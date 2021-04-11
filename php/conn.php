@@ -1,9 +1,12 @@
 <?php
 
 $servername = "localhost";
-$db = "id16429686_yromem_db";
-$username = "id16429686_yromem_admin";
-$pw = "aeaLKT(]l%NbLH0X";
+$db = "id16429717_incupe";
+$username = "id16429717_incupe_dev";
+$pw = "SO4o-s3hB0y{@-l%";
+// $db = "id16429686_yromem_db";
+// $username = "id16429686_yromem_admin";
+// $pw = "aeaLKT(]l%NbLH0X";
 // $port = "3306";
 
 try {

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        [data-template] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p><a class="btn btn-info" href="admin-edit-question.html">Add question</a></p>
+                <select id="sel_topic">
+                    <option value="0">select one</option>
+                    <option value="1">Biology</option>
+                    <option value="2">Chemistry</option>
+                    <option value="3">Physics</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" id="question_container">
+                <div data-template>
+                    <a data-edit class="btn btn-warning" href="#">Edit</a>
+                    <button data-delete class="btn btn-danger" type="button">Delete</button>
+                    <p data-question>Question bla bla</p>
+
+                    <ul>
+                        <li data-a0>answer0</li>
+                        <li data-a1>answer1</li>
+                        <li data-a2>answer2</li>
+                        <li data-a3>answer3</li>
+                    </ul>
+
+                    <p data-explanation>explanation</p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
+    <div class="modal" id="modal_delete_confirm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Are you sure?
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_confirm_delete">
+                        Yes
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/ajax.js"></script>
+    <script>
+        $(document).ready(function () {
+            var question_container = $('#question_container');
+
+            $('#sel_topic').on('change', function () {
+                question_container.find('div:not([data-template])').remove();
+
+                var topic_id = parseInt($(this).val());
+
+                if (topic_id === 0) {
+                    return;
+                }
+
+                doAjax("get",
+                    "ajax.php",
+                    { get_question_by_topic: topic_id },
+                    function () { },
+                    function (response) {
+                        var Questions = JSON.parse(response);
+
+                        Questions.forEach(function (value, index, array) {
+                            var added = $('[data-template]').clone().appendTo(question_container);
+
+                            added.removeAttr('data-template');
+                            added.attr('data-qid', value.question_id);
+                            added.find('[data-edit]').attr('href', 'admin-edit-question.html?qid=' + value.question_id);
+                            added.find('[data-question]').html(value.question);
+                            added.find('[data-a0]').html(value.a0);
+                            added.find('[data-a1]').html(value.a1);
+                            added.find('[data-a2]').html(value.a2);
+                            added.find('[data-a3]').html(value.a3);
+                            added.find('[data-explanation]').html(value.explanation);
+
+                            added.find('button[data-delete]').on('click', function () {
+                                $('#btn_confirm_delete').val(value.question_id);
+                                $('#modal_delete_confirm').modal('show');
+                            });
+                        });
+                    });
+            });
+
+            $('#btn_confirm_delete').on('click', function () {
+                var qid = $(this).val();
+                doAjax('post',
+                    'ajax.php',
+                    { delete_question: qid },
+                    function () { },
+                    function (response) {
+                        if (response == 'OK') {
+                            $('[data-qid=' + qid + ']').remove();
+                        }
+                        console.log(response);
+                    });
+            });
+        });
+    </script>
+</body>
+
+</html>
