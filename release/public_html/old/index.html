@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZP4LTMX13J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZP4LTMX13J');
+    </script> -->
+    <title>Yromem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
+
+    <style>
+        #topic_list.loaded>#loading {
+            display: none;
+        }
+
+        #topic_list.loaded {
+            animation-name: slide_into_view;
+            animation-duration: 0.6s;
+            animation-fill-mode: forwards;
+            animation-direction: reverse;
+            /* ease in because animation direction is reversed */
+            animation-timing-function: ease-in;
+        }
+
+        @keyframes slide_into_view {
+            100% {
+                margin-top: 200px;
+                opacity: 0;
+            }
+        }
+
+        li {
+            display: inline-block;
+            list-style: none;
+        }
+
+        li::after {
+            display: inline-block;
+            margin: 0 5px;
+            content: "|";
+        }
+
+        li:last-child::after {
+            content: "";
+        }
+
+        footer {
+            margin-top: 16px;
+            padding-top: 32px;
+            padding-bottom: 32px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div><img src="img/logo.png"></div>
+                <h1 class="page_header">Yromem</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" id="topic_list">
+                <p id="loading" class="text-center michroma_font larger_text mt-4 flashing">Loading...</p>
+                <a class="hexagon_container hexagon_nav mx-auto" data-template="topic" href="game-title.html"></a>
+            </div>
+        </div>
+        <footer class="row">
+            <div class="col-12">
+                <ul>
+                    <li><a target="_blank" href="contact.html">Terms of Use</a></li>
+                    <li><a target="_blank" href="contact.html">Contact Us</a></li>
+                    <li><a target="_blank" href="contact.html">Request a Feature</a></li>
+                </ul>
+            </div>
+    </div>
+    </div>
+    <!-- preload images -->
+    <img src="img/text_hexagon_selected.svg" class="d-none">
+    <script src="js/ajax.js"></script>
+    <script>
+        $(document).ready(function () {
+            doAjax("get",
+                "ajax.php?topic",
+                {},
+                function () { },
+                function (response) {
+                    $('#loading').remove();
+
+                    var template = $('[data-template="topic"]');
+                    var topic_list_div = $('#topic_list');
+
+                    var topics = JSON.parse(response);
+
+                    topics.forEach(function (value, index, array) {
+                        var added = template.clone().appendTo(topic_list_div);
+                        added
+                            .removeAttr("data-template")
+                            .attr("href", encodeURI("game.html?topic=" + value.topic + "&tid=" + value.topic_id))
+                            .text(value.topic);
+                    });
+
+                    topic_list_div.addClass('loaded');
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+@import "./variable.scss";
+
+.section_title {
+    align-items: center;
+}
+
+.section_title::before {
+    margin-right: 16px;
+}
+
+.section_title::after {
+    margin-left: 16px;
+}
+
+.section_title::before,
+.section_title::after {
+    content: "";
+    flex-grow: 1;
+    background-color: $bs-primary;
+    height: 4px;
+    font-size: 0px;
+    line-height: 4px;
+}
+
+a.card:hover,
+a.card:focus {
+    text-decoration: none;
+    color: $bs-primary;
+}

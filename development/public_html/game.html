@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Yromem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c55d52918e.js" crossorigin="anonymous"></script>
+
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/game.css" rel="stylesheet">
+</head>
+
+<body class="pb-5">
+    <nav class="navbar navbar-expand-sm navbar-dark mb-3">
+        <a class="navbar-brand" href="#">
+            <img src="img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            Yromem
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fab fa-facebook"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fab fa-instagram"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container d-none">
+        <div class="row">
+            <div class="col-12">
+                <p>1 of 15</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="jumbotron">
+                    <!-- <h1 class="display-4">Hello, world!</h1> -->
+                    <div class="lead">Which substance is a covalent compound</div>
+                </div>
+            </div>
+        </div>
+        <div class="row question_div">
+            <div class="col-12 col-md-6">
+                <div class="answer_button ml-md-auto mr-md-0 mx-auto font-weight-bold" id="answer0">
+                    <span class="answer_text" data-answer-option="1">answer</span>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="answer_button mr-md-auto ml-md-0 mx-auto font-weight-bold" id="answer1">
+                    <span class="answer_text" data-answer-option="2">answer</span>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="answer_button ml-md-auto mr-md-0 mx-auto font-weight-bold" id="answer2">
+                    <span class="answer_text" data-answer-option="3">answer</span>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="answer_button mr-md-auto ml-md-0 mx-auto font-weight-bold" id="answer3">
+                    <span class="answer_text" data-answer-option="4">answer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4>Review</h4>
+                <ol class="review_list">
+                    <li>
+                        <p class="m-0">Which of the following does not affect the rate of reaction?</p>
+                        <div class="review_answer review_answer_correct">
+                            <p data-answer-option="1">Volume of the solution</p>
+                            <p class="mt-2 mb-0">
+                                Volume of the solution only affects the quantity of product produced (MV/1000 = number
+                                of moles)
+                            </p>
+                        </div>
+                        <div class="review_answer">
+                            <p data-answer-option="2">The presence of a catalyst</p>
+                        </div>
+                        <div class="review_answer">
+                            <p data-answer-option="3">Temperature of the reactant</p>
+                        </div>
+                        <div class="review_answer">
+                            <p data-answer-option="4">Concentration of the solution</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="m-0">Which of the following is a reduction process?</p>
+                        <div class="review_answer">
+                            <p data-answer-option="1">A potassium atom loses an electron</p>
+                        </div>
+                        <div class="review_answer review_answer_correct">
+                            <p data-answer-option="2">A chlorine atom receives an electron</p>
+                            <p class="mt-2 mb-0">
+                                In a reduction process, the oxidation number of the particles decreases or the particles
+                                will receive electron.
+                            </p>
+                        </div>
+                        <div class="review_answer">
+                            <p data-answer-option="3">A magnesium atom gains oxygen</p>
+                        </div>
+                        <div class="review_answer">
+                            <p data-answer-option="4">The oxidation number of a bromine atom increases</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="container-fluid">
+        <div cl;></div>
+    </div> -->
+    <button class="btn btn-success continue_button">Continue</button>
+</body>
+
+</html>

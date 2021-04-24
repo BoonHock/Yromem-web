@@ -1,0 +1,36 @@
+/* SCSS HEX */
+/* SCSS HSL */
+/* SCSS RGB */
+/* BOOTSTRAP COLOR */
+.section_title {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.section_title::before {
+  margin-right: 16px;
+}
+
+.section_title::after {
+  margin-left: 16px;
+}
+
+.section_title::before,
+.section_title::after {
+  content: "";
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  background-color: #007bff;
+  height: 4px;
+  font-size: 0px;
+  line-height: 4px;
+}
+
+a.card:hover,
+a.card:focus {
+  text-decoration: none;
+  color: #007bff;
+}
+/*# sourceMappingURL=index.css.map */

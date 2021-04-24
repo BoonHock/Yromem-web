@@ -1,0 +1,47 @@
+/* SCSS HEX */
+/* SCSS HSL */
+/* SCSS RGB */
+/* BOOTSTRAP COLOR */
+li {
+  font-size: 1.2em;
+}
+
+.ul_chapter > li:not(:last-child) {
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.check_label {
+  display: block;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  padding: 16px 16px;
+}
+
+.fa_check_input:not(:checked) + i.fa-check-circle::before {
+  content: "\f111";
+  font-weight: 400;
+}
+
+.fa_check_input:checked + i.fa-check-circle::before {
+  content: "\f058";
+  font-weight: 900;
+}
+
+a.game_mode_card {
+  text-align: center;
+  color: #3c91e6;
+  border-color: #3c91e6;
+}
+
+a.game_mode_card:hover,
+a.game_mode_card:focus,
+a.game_mode_card:hover *,
+a.game_mode_card:focus * {
+  text-decoration: none;
+  color: #fff;
+  background-color: #3c91e6;
+}
+/*# sourceMappingURL=topic.css.map */

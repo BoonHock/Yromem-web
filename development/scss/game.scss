@@ -1,0 +1,71 @@
+@import "./variable";
+
+.answer_button {
+    font-size: 0.9em;
+    // background-color: $tufts-blue;
+    // color: #fff;
+    border: 1.5px solid $tufts-blue;
+    color: $tufts-blue;
+    border-radius: 40px;
+    padding: 20px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.answer_button:hover {
+    background-color: $tufts-blue;
+    color: #fff;
+}
+
+.answer_button.long_answer {
+    font-size: 0.8em;
+}
+
+.continue_button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+[data-answer-option]::before {
+    margin-right: 8px;
+}
+[data-answer-option="1"]::before {
+    content: "A:";
+}
+[data-answer-option="2"]::before {
+    content: "B:";
+}
+[data-answer-option="3"]::before {
+    content: "C:";
+}
+[data-answer-option="4"]::before {
+    content: "D:";
+}
+
+.review_list > li {
+    border-bottom: 1px solid #d3d3d3;
+    padding-bottom: 1.5em;
+    margin-bottom: 1.5em;
+}
+.review_list .review_answer {
+    padding: 0.5em;
+}
+.review_list p[data-answer-option] {
+    margin: 0;
+}
+
+.review_answer_correct {
+    background-color: $red-pigment;
+    border-radius: 0.25em;
+    color: #fff;
+}
+
+// .review_list > li {
+//     padding: 10px;
+// }
