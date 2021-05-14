@@ -17,6 +17,23 @@ body {
     background-color: $red-pigment;
 }
 
+.spinner_container {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 99999;
+}
+
+[data-template] {
+    display: none !important;
+}
+
 // .changing-fa{
 //     animation-name: flash_correct;
 //     animation-duration:0.2s;

@@ -1,6 +1,7 @@
 <?php
 
 require_once '../php/conn.php';
+require_once '../db/question.php';
 
 if (isset($_GET["topic"])) {
     $query = $conn->prepare("SELECT topic_id, topic FROM topic");
@@ -26,6 +27,33 @@ if (isset($_GET["topic"])) {
     LIMIT 16");
     $query->execute([$_GET['start_game']]);
     echo json_encode($query->fetchAll(PDO::FETCH_ASSOC));
+} elseif (!empty($_GET['get_questions_for_game'])) {
+    $limit = 15;
+    $obj = json_decode($_GET['get_questions_for_game']);
+    $topic_id = $obj->topic_id;
+    $chapter_ids = $obj->chapter_ids;
+
+    if (!empty($_GET['mode'])) {
+        if ($_GET['mode'] === 'standard') {
+            $limit = 20;
+        } else {
+            // TODO
+            // $limit = 16;
+        }
+    }
+
+    echo json_encode(get_questions_for_game($topic_id, $chapter_ids, $limit));
+    // echo json_encode(get_questions_for_game($));
+} elseif (!empty($_GET['get_question'])) {
+    $q = $conn->prepare('SELECT * FROM question WHERE question_id=(?)');
+    $q->execute([$_GET['get_question']]);
+
+    echo json_encode($q->fetch(PDO::FETCH_ASSOC));
+} elseif (!empty($_GET['get_question_by_topic'])) {
+    $q = $conn->prepare('SELECT * FROM question WHERE topic_id=(?)');
+    $q->execute([$_GET['get_question_by_topic']]);
+
+    echo json_encode($q->fetchAll(PDO::FETCH_ASSOC));
 } elseif (!empty($_POST['edit_question'])) {
     $data = json_decode($_POST['edit_question']);
 
@@ -47,16 +75,6 @@ if (isset($_GET["topic"])) {
     }
 
     echo 'OK';
-} elseif (!empty($_GET['get_question'])) {
-    $q = $conn->prepare('SELECT * FROM question WHERE question_id=(?)');
-    $q->execute([$_GET['get_question']]);
-
-    echo json_encode($q->fetch(PDO::FETCH_ASSOC));
-} elseif (!empty($_GET['get_question_by_topic'])) {
-    $q = $conn->prepare('SELECT * FROM question WHERE topic_id=(?)');
-    $q->execute([$_GET['get_question_by_topic']]);
-
-    echo json_encode($q->fetchAll(PDO::FETCH_ASSOC));
 } elseif (!empty($_POST['delete_question'])) {
     $q = $conn->prepare('DELETE FROM question WHERE question_id=(?);');
     $q->execute([$_POST['delete_question']]);

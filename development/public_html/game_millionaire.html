@@ -147,7 +147,7 @@
     <style>
         /* GAME STYLES */
 
-        .question_text {
+        #question_text {
             display: flex;
             align-items: center;
             background-color: #040526;
@@ -155,7 +155,7 @@
             padding: 0.7em;
         }
 
-        .question_text,
+        #question_text,
         .answer_button {
             font-size: 0.9em;
         }
@@ -165,7 +165,7 @@
         }
 
         @media (min-width: 768px) {
-            .question_text {
+            #question_text {
                 margin-left: 1em;
                 margin-right: 1em;
                 padding: 2em;
@@ -173,7 +173,7 @@
                 min-height: 150px;
             }
 
-            .question_text,
+            #question_text,
             .answer_button {
                 font-size: 1em;
             }
@@ -481,7 +481,7 @@
             </div>
             <div class="row mb-3 question_div">
                 <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
-                    <div class="question_text">
+                    <div id="question_text">
                         test testtest testtest testtest testtest testtest testtest test
                     </div>
                 </div>
@@ -561,6 +561,7 @@
 
     <script src="js/ajax.js"></script>
     <script src="js/timer.js"></script>
+    <script src="js/game.js"></script>
     <script>
         const TIME_LIMIT_SECONDS = 30;
 
@@ -569,15 +570,6 @@
             min = Math.ceil(min);
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
-        }
-
-        // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
         }
 
         function lifeline_5050(Question) {
@@ -610,7 +602,7 @@
 
         function change_question(Question) {
             var answers = shuffleArray([Question.a0, Question.a1, Question.a2, Question.a3]);
-            $('.question_text').text(Question.question);
+            $('#question_text').text(Question.question);
             reset_game_layout();
 
             for (var i = 0; i < answers.length; i++) {
@@ -803,10 +795,6 @@
                     });
 
                     show_game(CurrentQuestion, timer);
-
-                    // gtag('event', 'play_game', {
-                    //     'event_label': 'q' + question_index
-                    // });
                 }
             });
 

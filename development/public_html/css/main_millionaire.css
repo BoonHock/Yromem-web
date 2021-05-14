@@ -26,10 +26,6 @@ body {
     }
 } */
 
-[data-template] {
-    display: none !important;
-}
-
 .hexagon_container {
     display: flex;
     align-items: center;

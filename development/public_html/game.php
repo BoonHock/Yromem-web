@@ -1,8 +1,27 @@
+<?php
+
+require_once '../db/topic.php';
+
+if (empty($_GET['tid']) || empty($_GET['chapter'])) {
+    header('Location: /');
+    exit;
+}
+
+$tid = $_GET['tid'];
+// $arr_chapter = array_map('intval', explode(',', $_GET['chapter']));
+
+if (!($topic = get_topic($tid))) {
+    header('Location: 404.html');
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Yromem</title>
+    <title><?php echo $topic['topic_name']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
@@ -20,9 +39,12 @@
 
     <link href="css/main.css" rel="stylesheet">
     <link href="css/game.css" rel="stylesheet">
+    <link href="css/timer.css" rel="stylesheet">
+    <script src="js/timer.js"></script>
 </head>
 
 <body class="pb-5">
+    <?php include('nav.html'); ?>
     <div id="game_loading_spinner" class="spinner_container">
         <div class="mx-auto">
             <div class="spinner-grow"></div>
@@ -31,9 +53,17 @@
         </div>
     </div>
     <div id="game_layout" class="container">
+        <div class="row mb-1">
+            <div class="col-12 text-center">
+                <div id="countdown_timer"></div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
-                <p><span id="question_index">1</span> of <span id="total_questions">15</span></p>
+                <p>
+                    <span id="question_index">1</span>
+                    <span> of <span id="total_questions">15</span></span>
+                </p>
             </div>
         </div>
         <div class="row">
@@ -45,26 +75,22 @@
         </div>
         <div id="option_div" class="row">
             <div class="col-12 col-md-6">
-                <div class="answer_button answer_button_layout ml-md-auto mr-md-0 mx-auto font-weight-bold" id="answer0"
-                    data-answer-option="0">
+                <div class="answer_button answer_button_layout ml-md-auto mr-md-0 mx-auto font-weight-bold" id="answer0" data-answer-option="0">
                     <span class="answer_text">answer</span>
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="answer_button answer_button_layout mr-md-auto ml-md-0 mx-auto font-weight-bold incorrect"
-                    id="answer1" data-answer-option="1">
+                <div class="answer_button answer_button_layout mr-md-auto ml-md-0 mx-auto font-weight-bold incorrect" id="answer1" data-answer-option="1">
                     <span class="answer_text">answer</span>
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="answer_button answer_button_layout ml-md-auto mr-md-0 mx-auto font-weight-bold" id="answer2"
-                    data-answer-option="2">
+                <div class="answer_button answer_button_layout ml-md-auto mr-md-0 mx-auto font-weight-bold" id="answer2" data-answer-option="2">
                     <span class="answer_text">answer</span>
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="answer_button answer_button_layout ml-md-auto mr-md-0 mx-auto font-weight-bold" id="answer3"
-                    data-answer-option="3">
+                <div class="answer_button answer_button_layout ml-md-auto mr-md-0 mx-auto font-weight-bold" id="answer3" data-answer-option="3">
                     <span class="answer_text">answer</span>
                 </div>
             </div>
@@ -72,8 +98,7 @@
         <div id="reveal_div" class="d-none">
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <div id="reveal_answer_text"
-                        class="answer_button_layout ml-md-auto mr-md-0 mx-auto font-weight-bold" data-answer-option="3">
+                    <div id="reveal_answer_text" class="answer_button_layout ml-md-auto mr-md-0 mx-auto font-weight-bold" data-answer-option="3">
                         <span class="answer_text">answer</span>
                     </div>
                 </div>
@@ -87,7 +112,7 @@
             </button>
         </div>
     </div>
-    <div class="container d-none" id="review_layout">
+    <div class="container dnone" id="review_layout">
         <div class="row">
             <div class="col-12">
                 <h4>Review</h4>
@@ -107,6 +132,7 @@
                         </p>
                     </li>
                 </ol>
+                <a href="topic.php?tid=<?php echo $_GET['tid'] ?>" class="btn btn-info">Back to Menu</a>
             </div>
         </div>
     </div>
@@ -114,9 +140,10 @@
     <script src="js/game.js"></script>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        // if (!urlParams.has("tid") || !urlParams.has("chapter")) {
-        //     window.location.assign('/');
-        // }
+        if (!urlParams.has("tid") || !urlParams.has("chapter")) {
+            window.location.assign('/');
+        }
+
         function reset_game_layout() {
             var classes_to_remove = ['answered', 'selected', 'incorrect'];
 
@@ -152,7 +179,16 @@
             $('#question_index').text(question_index + 1);
         }
 
-        $(document).ready(function () {
+        $(document).ready(function() {
+            var timer;
+            var is_sprint_mode = urlParams.has('mode') && urlParams.get('mode') === 'sprint';
+
+            if (is_sprint_mode) {
+                timer = new CountdownTimer(60, function() {
+                    game_ended();
+                });
+            }
+
             var review_list_item_template = $('[data-template="review_list_item_template"]').clone().removeAttr('data-template');
             var review_answer_template = $('[data-template="review_answer_template"]').clone().removeAttr('data-template');
             $('[data-template="review_answer_template"]').remove();
@@ -171,10 +207,11 @@
             };
 
             doAjax("get",
-                "ajax.php",
-                { get_questions_for_game: JSON.stringify(data) },
-                function () { },
-                function (response) {
+                "ajax.php", {
+                    get_questions_for_game: JSON.stringify(data)
+                },
+                function() {},
+                function(response) {
                     question_index = 0;
                     questions = JSON.parse(response);
 
@@ -183,10 +220,15 @@
                     CurrentQuestion = questions[question_index];
                     change_question(CurrentQuestion, question_index);
 
-                    $('#game_loading_spinner').fadeOut();
+                    $('#game_loading_spinner').fadeOut(function() {
+                        if (is_sprint_mode) {
+                            timer.startTimer();
+                        }
+                    });
                 });
 
-            $('.answer_button').on('click', function () {
+
+            $('.answer_button').on('click', function() {
                 // if current question already answered do not respond
                 if (CurrentQuestion.answered === true) {
                     return;
@@ -196,7 +238,7 @@
                 var answer_text = selected_answer.children('.answer_text').text().toLowerCase();
                 var data_answer_option;
 
-                $('.answer_button').each(function (index) {
+                $('.answer_button').each(function(index) {
                     if ($(this).children('.answer_text').text() == CurrentQuestion.a0) {
                         data_answer_option = $(this).attr('data-answer-option');
                     }
@@ -225,7 +267,7 @@
                 update_review_layout(selected_answer.attr('data-answer-option'));
             });
 
-            $('#continue_button').on('click', function () {
+            $('#continue_button').on('click', function() {
                 if (question_index < questions.length - 1) {
                     CurrentQuestion = questions[++question_index];
                     change_question(CurrentQuestion, question_index);
@@ -276,8 +318,7 @@
                     if (selected_answer_dao != correct_answer_dao) {
                         review_list_answer.append(ra_correct);
                     }
-                }
-                else {
+                } else {
                     if (selected_answer_dao != correct_answer_dao) {
                         review_list_answer.append(ra_correct);
                     }
@@ -288,8 +329,7 @@
                 // if no explanation, remove jumbotron so that the styles not displayed
                 if (CurrentQuestion.explanation.length == 0) {
                     explanation_div.remove();
-                }
-                else {
+                } else {
                     explanation_div.html(CurrentQuestion.explanation);
                 }
                 review_list.append(new_list_item);

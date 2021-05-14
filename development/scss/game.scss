@@ -1,6 +1,11 @@
 @import "./variable";
 
-.answer_button {
+#game_loading_spinner.spinner_container {
+    background-color: $red-pigment;
+    color: #fff;
+}
+
+.answer_button_layout {
     font-size: 0.9em;
     // background-color: $tufts-blue;
     // color: #fff;
@@ -9,63 +14,52 @@
     border-radius: 40px;
     padding: 20px;
     margin-bottom: 8px;
+}
+.answer_button {
     cursor: pointer;
 }
-
+.selected,
 .answer_button:hover {
     background-color: $tufts-blue;
     color: #fff;
 }
-
-.answer_button.long_answer {
-    font-size: 0.8em;
+.incorrect {
+    background-color: $red-pigment;
+    color: #fff;
+}
+.answer_button_layout.incorrect {
+    border: 1.5px solid $red-pigment;
 }
 
-.continue_button {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    border-radius: 0;
-    padding-top: 8px;
-    padding-bottom: 8px;
+[data-answer-option] {
+    display: flex;
 }
-
 [data-answer-option]::before {
     margin-right: 8px;
 }
-[data-answer-option="1"]::before {
+[data-answer-option="0"]::before {
     content: "A:";
 }
-[data-answer-option="2"]::before {
+[data-answer-option="1"]::before {
     content: "B:";
 }
-[data-answer-option="3"]::before {
+[data-answer-option="2"]::before {
     content: "C:";
 }
-[data-answer-option="4"]::before {
+[data-answer-option="3"]::before {
     content: "D:";
 }
 
-.review_list > li {
+#review_list > li {
     border-bottom: 1px solid #d3d3d3;
     padding-bottom: 1.5em;
     margin-bottom: 1.5em;
 }
-.review_list .review_answer {
+#review_list .review_answer {
     padding: 0.5em;
+    margin-bottom: 0.5em;
+    border-radius: 0.25em;
 }
-.review_list p[data-answer-option] {
+#review_list p[data-answer-option] {
     margin: 0;
 }
-
-.review_answer_correct {
-    background-color: $red-pigment;
-    border-radius: 0.25em;
-    color: #fff;
-}
-
-// .review_list > li {
-//     padding: 10px;
-// }

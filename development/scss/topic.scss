@@ -15,12 +15,12 @@ li {
     padding: 16px 16px;
 }
 
-.fa_check_input:not(:checked) + i.fa-check-circle::before {
+.fa_check_input:not(:checked) ~ span i.fa-check-circle::before {
     content: "\f111";
     font-weight: 400;
 }
 
-.fa_check_input:checked + i.fa-check-circle::before {
+.fa_check_input:checked ~ span i.fa-check-circle::before {
     content: "\f058";
     font-weight: 900;
 }
