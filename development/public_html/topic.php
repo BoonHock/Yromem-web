@@ -11,15 +11,7 @@ if (empty($_GET['tid'])) {
 
 $tid = $_GET['tid'];
 
-if (!is_numeric($tid)) {
-    // topic id must be numeric
-    header('location: /404.html');
-    exit;
-}
-
-if ($topic = get_topic($tid)) {
-    // topic ok
-} else {
+if (!($topic = get_topic($tid))) {
     // no such topic
     header('location: /404.html');
     exit;
@@ -33,7 +25,12 @@ $r_chapter = get_chapters($tid);
 <html>
 
 <head>
-    <title>Yromem</title>
+    <title><?php echo $topic['topic_name']; ?></title>
+    <meta name="description" content="Studying shouldn't be boring! Play quizzes in different modes to make your learning journey fun and enjoyable." />
+    <meta name="og:title" content="Yromem - <?php echo $topic['topic_name']; ?>" />
+    <meta name="og:description" content="Studying shouldn't be boring! Play quizzes in different modes to make your learning journey fun and enjoyable." />
+    <meta name="og:image" content="img/favicon.ico" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
@@ -115,7 +112,7 @@ $r_chapter = get_chapters($tid);
                 </div>
                 <div class="modal-body">
                     <div class="card-deck mb-3">
-                        <a class="card game_mode_card" data-mode="standard" href="game.php?mode=standard&tid=<?php echo $tid; ?>">
+                        <a class="card game_mode_card" data-mode="standard" href="#">
                             <div class="card-body">
                                 <h5 class="card-title">Standard</h5>
                                 <p class="card-text">
@@ -123,7 +120,7 @@ $r_chapter = get_chapters($tid);
                                 </p>
                             </div>
                         </a>
-                        <a class="card game_mode_card" data-mode="sprint" href="game.php?mode=sprint&tid=<?php echo $tid; ?>">
+                        <a class="card game_mode_card" data-mode="sprint" href="#">
                             <div class="card-body">
                                 <h5 class="card-title">Sprint</h5>
                                 <p class="card-text">
@@ -131,7 +128,7 @@ $r_chapter = get_chapters($tid);
                                 </p>
                             </div>
                         </a>
-                        <a class="card game_mode_card" data-mode="millionaire" href="game_millionaire.html?tid=<?php echo $tid; ?>">
+                        <a class="card game_mode_card" data-mode="millionaire" href="#">
                             <div class="card-body">
                                 <h5 class="card-title">Millionaire</h5>
                                 <p class="card-text">
@@ -193,7 +190,7 @@ $r_chapter = get_chapters($tid);
                         var game_mode = $(this).attr('data-mode');
 
                         if (game_mode === 'millionaire') {
-                            $(this).attr('href', encodeURI('game_millionaire.html?tid=' + topic_id + '&chapter=' + chapter_id_join));
+                            $(this).attr('href', encodeURI('game_millionaire.php?tid=' + topic_id + '&chapter=' + chapter_id_join));
                         } else {
                             $(this).attr('href', encodeURI('game.php?tid=' + topic_id + '&chapter=' + chapter_id_join + '&mode=' + $(this).attr('data-mode')));
                         }

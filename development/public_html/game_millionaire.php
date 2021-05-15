@@ -1,3 +1,22 @@
+<?php
+
+require_once '../db/topic.php';
+
+if (empty($_GET['tid']) || empty($_GET['chapter'])) {
+    header('Location: /');
+    exit;
+}
+
+$tid = $_GET['tid'];
+// $arr_chapter = array_map('intval', explode(',', $_GET['chapter']));
+
+if (!($topic = get_topic($tid))) {
+    header('Location: 404.html');
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -575,7 +594,7 @@
         function lifeline_5050(Question) {
             var answer_text = Question.a0;
 
-            var answer_no = parseInt($(".answer_text").filter(function () {
+            var answer_no = parseInt($(".answer_text").filter(function() {
                 return $(this).text() === Question.a0;
             }).parent().attr('id').replace('answer', ''));
 
@@ -594,7 +613,7 @@
         }
 
         function lifeline_switch(Question) {
-            $('.question_div').fadeOut(function () {
+            $('.question_div').fadeOut(function() {
                 change_question(Question);
                 $('.question_div').fadeIn();
             });
@@ -632,9 +651,9 @@
 
         function show_game(Question, timer) {
             change_question(Question);
-            $('#payout_layout').fadeOut(function () {
+            $('#payout_layout').fadeOut(function() {
                 $('#game_layout').fadeIn(
-                    function () {
+                    function() {
                         timer.startTimer();
                     }
                 )
@@ -647,8 +666,7 @@
             // question 15 means win d
             if (is_correct && question_index < 15) {
                 update_payout_table(question_index)
-            }
-            else {
+            } else {
                 if (!is_correct) {
                     // if question answered wrongly. highlight previous reward
                     update_payout_table(question_index - 1);
@@ -657,7 +675,7 @@
                 $('#continue_game').addClass('d-none');
                 $('.game_over_button').removeClass('d-none');
             }
-            $('#game_layout').fadeOut(function () {
+            $('#game_layout').fadeOut(function() {
                 $('#navigate_to_payout_overlay, #click_to_continue').addClass('d-none');
                 $('#payout_layout').fadeIn()
             });
@@ -677,7 +695,7 @@
 
             var playing_audio = null;
 
-            $('#btn_music audio').each(function (index, elem) {
+            $('#btn_music audio').each(function(index, elem) {
                 if (!elem.pause) {
                     playing_audio = $(elem);
                 }
@@ -697,7 +715,7 @@
                 audio[0].play();
 
                 if (onEnd != null) {
-                    audio.on('ended', function () {
+                    audio.on('ended', function() {
                         onEnd();
                     });
                 }
@@ -705,7 +723,7 @@
         }
 
         function pause_all_music() {
-            $('#btn_music audio').each(function (index, elem) {
+            $('#btn_music audio').each(function(index, elem) {
                 $(elem).off('ended');
                 elem.pause();
             });
@@ -714,26 +732,21 @@
         function play_music_based_on_question_index(question_index, require_reset) {
             if (question_index < 5) {
                 play_music('1_5', require_reset);
-            }
-            else if (question_index < 10) {
+            } else if (question_index < 10) {
                 play_music('6_10', require_reset);
-            }
-            else if (question_index < 11) {
+            } else if (question_index < 11) {
                 play_music('11', require_reset);
-            }
-            else if (question_index < 13) {
+            } else if (question_index < 13) {
                 play_music('12_13', require_reset);
-            }
-            else if (question_index < 14) {
+            } else if (question_index < 14) {
                 play_music('14', require_reset);
-            }
-            else if (question_index == 14) {
+            } else if (question_index == 14) {
                 play_music('15', require_reset);
             }
         }
 
-        $(document).ready(function () {
-            $('audio').each(function (index, elem) {
+        $(document).ready(function() {
+            $('audio').each(function(index, elem) {
                 // lower the volume. default is full volume which is very loud
                 elem.volume = 0.5;
             });
@@ -756,16 +769,19 @@
 
             update_payout_table(question_index);
 
-            $('#start_game').on('click', function () {
+            $('#start_game').on('click', function() {
                 reset_game();
-                play_music('short_intro', true, function () { play_music('1_5', true); });
-                $('#game_title_container').fadeOut(function () {
-                    $('#game_container').fadeIn(function () {
+                play_music('short_intro', true, function() {
+                    play_music('1_5', true);
+                });
+                $('#game_title_container').fadeOut(function() {
+                    $('#game_container').fadeIn(function() {
                         doAjax("get",
-                            "ajax.php",
-                            { start_game: urlParams.get("tid") },
-                            function () { },
-                            function (response) {
+                            "ajax.php", {
+                                start_game: urlParams.get("tid")
+                            },
+                            function() {},
+                            function(response) {
                                 questions = JSON.parse(response);
                                 spare_question = questions.pop();
 
@@ -776,11 +792,12 @@
                 });
             });
 
-            $('#continue_game').on('click', function () {
+            $('#continue_game').on('click', function() {
                 if (question_index == 0) {
-                    play_music('lets_play', true, function () { play_music('1_5', true); });
-                }
-                else {
+                    play_music('lets_play', true, function() {
+                        play_music('1_5', true);
+                    });
+                } else {
                     play_music_based_on_question_index(question_index);
                 }
 
@@ -790,7 +807,7 @@
                     CurrentQuestion = questions[question_index];
                     CurrentQuestion.answered = false;
 
-                    timer = new CountdownTimer(TIME_LIMIT_SECONDS, function () {
+                    timer = new CountdownTimer(TIME_LIMIT_SECONDS, function() {
                         end_question();
                     });
 
@@ -798,14 +815,14 @@
                 }
             });
 
-            $("#new_game").on('click', function () {
+            $("#new_game").on('click', function() {
                 play_music('main_theme', true);
-                $('#game_container').fadeOut(function () {
+                $('#game_container').fadeOut(function() {
                     $('#game_title_container').fadeIn();
                 });
             });
 
-            $('.answer_button').on('click', function () {
+            $('.answer_button').on('click', function() {
                 timer.stopTimer();
                 var selected_answer = $(this);
                 var answer_text = selected_answer.children('.answer_text').text().toLowerCase();
@@ -822,7 +839,7 @@
                 end_question();
             });
 
-            $('.game_lifeline > .lifeline_button').on('click', function () {
+            $('.game_lifeline > .lifeline_button').on('click', function() {
                 var data_lifeline = $(this).attr('data-lifeline');
 
                 // already used
@@ -848,7 +865,7 @@
                 }
             });
 
-            $('#close_win_banner').on('click', function (e) {
+            $('#close_win_banner').on('click', function(e) {
                 $('#millionaire_win').addClass('d-none');
             });
 
@@ -859,7 +876,7 @@
                 setTimeout(() => {
                     var is_correct = false;
 
-                    $('.answer_button').each(function (index) {
+                    $('.answer_button').each(function(index) {
                         if ($(this).children('.answer_text').text() == CurrentQuestion.a0) {
                             // highlight correct answer
                             $(this).addClass('correct');
@@ -875,14 +892,14 @@
                         if (question_index == 15) {
                             $('#millionaire_win').removeClass('d-none');
                             play_music('main_theme', true);
-                        }
-                        else {
+                        } else {
                             play_music('correct_answer',
                                 true,
-                                function () { play_music_based_on_question_index(question_index); })
+                                function() {
+                                    play_music_based_on_question_index(question_index);
+                                })
                         }
-                    }
-                    else {
+                    } else {
                         play_music('wrong_answer', true)
                     }
 
@@ -890,7 +907,7 @@
                         // show overlay so that all items behind blocked and answer buttons won't show hover pattern
                         $('#click_to_continue').removeClass('d-none');
 
-                        $(document).on('click', function () {
+                        $(document).on('click', function() {
                             if ($('#millionaire_win').hasClass('d-none')) {
                                 // if millionaire banner showing, dont navigate to payout.
                                 // let user manually close that first
@@ -913,7 +930,7 @@
                 update_payout_table(0);
             }
 
-            $('#btn_music').on('click', function () {
+            $('#btn_music').on('click', function() {
                 var btn_music = $(this);
                 if (btn_music.hasClass('music_on')) {
                     btn_music.removeClass('music_on').addClass('music_off');

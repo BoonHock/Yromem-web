@@ -22,6 +22,11 @@ if (!($topic = get_topic($tid))) {
 
 <head>
     <title><?php echo $topic['topic_name']; ?></title>
+    <meta name="description" content="Studying shouldn't be boring! Play quizzes in different modes to make your learning journey fun and enjoyable." />
+    <meta name="og:title" content="Yromem - <?php echo $topic['topic_name']; ?>" />
+    <meta name="og:description" content="Studying shouldn't be boring! Play quizzes in different modes to make your learning journey fun and enjoyable." />
+    <meta name="og:image" content="img/favicon.ico" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
