@@ -7,7 +7,7 @@ function doAjax(getPost, url, data, doBefore, doSuccess) {
 	}
 
 	if (window.location.host != "localhost") {
-		url = "https://incupedev.000webhostapp.com/" + url
+		url = "https://yromem.000webhostapp.com/" + url
 	}
 
 	xhr = $.ajax({

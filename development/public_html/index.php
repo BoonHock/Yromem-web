@@ -30,7 +30,7 @@ $r_topics = get_topics();
 </head>
 
 <body>
-    <?php include('nav.html'); ?>
+    <?php include('../includes/nav.html'); ?>
     <div class="container">
         <div class="row mt-3">
             <div class="col-12">

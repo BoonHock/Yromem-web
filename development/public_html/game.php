@@ -44,7 +44,7 @@ if (!($topic = get_topic($tid))) {
 </head>
 
 <body class="pb-5">
-    <?php include('nav.html'); ?>
+    <?php include('../includes/nav.html'); ?>
     <div id="game_loading_spinner" class="spinner_container">
         <div class="mx-auto">
             <div class="spinner-grow"></div>
@@ -62,7 +62,7 @@ if (!($topic = get_topic($tid))) {
             <div class="col-12">
                 <p>
                     <span id="question_index">1</span>
-                    <span> of <span id="total_questions">15</span></span>
+                    <span id="total_questions"> of <span id="total_questions_no">15</span></span>
                 </p>
             </div>
         </div>
@@ -112,7 +112,7 @@ if (!($topic = get_topic($tid))) {
             </button>
         </div>
     </div>
-    <div class="container dnone" id="review_layout">
+    <div class="container d-none" id="review_layout">
         <div class="row">
             <div class="col-12">
                 <h4>Review</h4>
@@ -183,14 +183,10 @@ if (!($topic = get_topic($tid))) {
             var timer;
             var is_sprint_mode = urlParams.has('mode') && urlParams.get('mode') === 'sprint';
 
-            if (is_sprint_mode) {
-                timer = new CountdownTimer(60, function() {
-                    game_ended();
-                });
-            }
-
-            var review_list_item_template = $('[data-template="review_list_item_template"]').clone().removeAttr('data-template');
-            var review_answer_template = $('[data-template="review_answer_template"]').clone().removeAttr('data-template');
+            var review_list_item_template = $('[data-template="review_list_item_template"]')
+                .clone().removeAttr('data-template');
+            var review_answer_template = $('[data-template="review_answer_template"]')
+                .clone().removeAttr('data-template');
             $('[data-template="review_answer_template"]').remove();
             $('[data-template="review_list_item_template"]').remove();
 
@@ -201,23 +197,28 @@ if (!($topic = get_topic($tid))) {
             const topic_id = urlParams.get('tid');
             const chapter_ids = urlParams.get('chapter').split(',');
 
-            var data = {
-                topic_id: topic_id,
-                chapter_ids: chapter_ids
-            };
+            start_game();
 
-            doAjax("get",
-                "ajax.php", {
-                    get_questions_for_game: JSON.stringify(data)
-                },
-                function() {},
-                function(response) {
-                    question_index = 0;
-                    questions = JSON.parse(response);
+            function start_game() {
+                var data = {
+                    topic_id: topic_id,
+                    chapter_ids: chapter_ids
+                };
 
-                    $('#total_questions').text(questions.length);
+                question_index = 0; // reset
+
+                get_questions_for_game(data, function() {
+                    if (is_sprint_mode) {
+                        $('#total_questions').remove();
+                        timer = new CountdownTimer(60, function() {
+                            game_ended();
+                        });
+                    } else {
+                        $('#total_questions_no').text(questions.length);
+                    }
 
                     CurrentQuestion = questions[question_index];
+
                     change_question(CurrentQuestion, question_index);
 
                     $('#game_loading_spinner').fadeOut(function() {
@@ -226,7 +227,22 @@ if (!($topic = get_topic($tid))) {
                         }
                     });
                 });
+            }
 
+            function get_questions_for_game(data, callback) {
+                doAjax("get",
+                    "ajax.php", {
+                        get_questions_for_game: JSON.stringify(data)
+                    },
+                    function() {},
+                    function(response) {
+                        questions = questions.concat(JSON.parse(response));
+
+                        if (callback != null) {
+                            callback();
+                        }
+                    });
+            }
 
             $('.answer_button').on('click', function() {
                 // if current question already answered do not respond
@@ -271,13 +287,30 @@ if (!($topic = get_topic($tid))) {
                 if (question_index < questions.length - 1) {
                     CurrentQuestion = questions[++question_index];
                     change_question(CurrentQuestion, question_index);
+
+                    if (is_sprint_mode && question_index === (questions.length - 5)) {
+                        var qids = [];
+
+                        questions.forEach(function(value, index) {
+                            qids.push(value.question_id);
+                        });
+                        var data = {
+                            topic_id: topic_id,
+                            chapter_ids: chapter_ids,
+                            exclude_qid: qids
+                        };
+
+                        get_questions_for_game(data);
+                    }
                 } else {
-                    // ended
                     game_ended();
                 }
             });
 
             function game_ended() {
+                if (is_sprint_mode) {
+                    timer.stopTimer();
+                }
                 $('#game_layout').remove();
                 $('#review_layout').removeClass('d-none');
             }
@@ -334,7 +367,6 @@ if (!($topic = get_topic($tid))) {
                 }
                 review_list.append(new_list_item);
             }
-
         });
     </script>
 </body>

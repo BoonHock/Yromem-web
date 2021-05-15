@@ -32,17 +32,17 @@ if (isset($_GET["topic"])) {
     $obj = json_decode($_GET['get_questions_for_game']);
     $topic_id = $obj->topic_id;
     $chapter_ids = $obj->chapter_ids;
+    $exclude_qid = [];
 
-    if (!empty($_GET['mode'])) {
-        if ($_GET['mode'] === 'standard') {
-            $limit = 20;
-        } else {
-            // TODO
-            // $limit = 16;
-        }
+    if (!empty($obj->limit) && !is_nan($obj->limit)) {
+        $limit = $_GET['limit'];
     }
 
-    echo json_encode(get_questions_for_game($topic_id, $chapter_ids, $limit));
+    if (!empty($obj->exclude_qid)) {
+        $exclude_qid = $obj->exclude_qid;
+    }
+
+    echo json_encode(get_questions_for_game($topic_id, $chapter_ids, $limit, $exclude_qid));
     // echo json_encode(get_questions_for_game($));
 } elseif (!empty($_GET['get_question'])) {
     $q = $conn->prepare('SELECT * FROM question WHERE question_id=(?)');

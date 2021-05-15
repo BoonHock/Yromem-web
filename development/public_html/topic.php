@@ -54,7 +54,7 @@ $r_chapter = get_chapters($tid);
 </head>
 
 <body>
-    <?php include('nav.html'); ?>
+    <?php include('../includes/nav.html'); ?>
     <div class="container">
         <div class="row mt-3">
             <div class="col-12">
