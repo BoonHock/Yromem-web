@@ -612,8 +612,7 @@ if (!($topic = get_topic($tid))) {
         }
 
         function change_question(Question) {
-            // var answers = shuffleArray([Question.a0, Question.a1, Question.a2, Question.a3]);
-            var answers = [Question.a0, Question.a1, Question.a2, Question.a3];
+            var answers = shuffleArray([Question.a0, Question.a1, Question.a2, Question.a3]);
             $('#question_text > p').html(Question.question);
             reset_game_layout();
 
@@ -921,7 +920,7 @@ if (!($topic = get_topic($tid))) {
             function reset_game() {
                 used_lifeline = [];
                 CurrentQuestion = null;
-                question_index = 0; // TODO set to 0
+                question_index = 0;
                 $('#continue_game').addClass('d-none');
                 $('.game_over_button').addClass('d-none');
                 $('#loading').removeClass('d-none');
