@@ -227,7 +227,8 @@ $r_chapter = get_chapters($tid);
                             var count = parseInt(response);
 
                             millionaire_mode_card.removeClass('loading');
-                            if (count >= 15) {
+                            if (count >= 16) {
+                                // 15 for standard questions. 1 for switch
                                 millionaire_mode_card.removeClass('disabled');
                             } else {
                                 millionaire_mode_card.addClass('not_enough_questions');
