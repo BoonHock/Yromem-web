@@ -34,6 +34,15 @@ body {
     display: none !important;
 }
 
+.cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+}
+
 // .changing-fa{
 //     animation-name: flash_correct;
 //     animation-duration:0.2s;

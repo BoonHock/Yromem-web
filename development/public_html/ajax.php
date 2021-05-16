@@ -35,7 +35,7 @@ if (isset($_GET["topic"])) {
     $exclude_qid = [];
 
     if (!empty($obj->limit) && !is_nan($obj->limit)) {
-        $limit = $_GET['limit'];
+        $limit = $obj->limit;
     }
 
     if (!empty($obj->exclude_qid)) {
@@ -54,6 +54,12 @@ if (isset($_GET["topic"])) {
     $q->execute([$_GET['get_question_by_topic']]);
 
     echo json_encode($q->fetchAll(PDO::FETCH_ASSOC));
+} elseif (!empty($_GET['count_chapter_questions'])) {
+    $obj = json_decode($_GET['count_chapter_questions']);
+    $topic_id = $obj->topic_id;
+    $chapter_ids = $obj->chapter_ids;
+
+    echo count_chapter_questions($topic_id, $chapter_ids);
 } elseif (!empty($_POST['edit_question'])) {
     $data = json_decode($_POST['edit_question']);
 

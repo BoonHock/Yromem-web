@@ -42,3 +42,27 @@ function get_questions_for_game($topic_id, $chapter_ids, int $limit, $exclude_qi
     $q->execute([$topic_id]);
     return $q->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function count_chapter_questions($topic_id, $chapter_ids)
+{
+    global $conn;
+
+    // make sure all elemes are int
+    $chapter_ids = array_map(function ($val) {
+        return (int) $val;
+    }, $chapter_ids);
+
+    $chapter_ids = implode("','", $chapter_ids);
+
+    $query = "SELECT count(*)
+    FROM question q
+    JOIN chapter c
+    ON q.chapter_id = c.chapter_id
+    WHERE q.chapter_id IN ('$chapter_ids')
+    AND c.topic_id = (?)";
+
+    $q = $conn->prepare($query);
+
+    $q->execute([$topic_id]);
+    return (int) $q->fetch(PDO::FETCH_COLUMN, 0);
+}

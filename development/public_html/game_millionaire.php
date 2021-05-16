@@ -21,17 +21,12 @@ if (!($topic = get_topic($tid))) {
 <html>
 
 <head>
-    <title>Game</title>
-    <script>
-        // const urlParams = new URLSearchParams(window.location.search);
-        // if (!urlParams.has("topic") || !urlParams.has("tid")) {
-        //     // no topic id and topic name
-        //     window.location.assign("index.html");
-        // }
+    <title><?php echo $topic['topic_name']; ?></title>
+    <meta name="description" content="Studying shouldn't be boring! Play quizzes in different modes to make your learning journey fun and enjoyable." />
+    <meta name="og:title" content="Yromem - <?php echo $topic['topic_name']; ?>" />
+    <meta name="og:description" content="Studying shouldn't be boring! Play quizzes in different modes to make your learning journey fun and enjoyable." />
+    <meta name="og:image" content="img/favicon.ico" />
 
-        // const topic_name = urlParams.get("topic");
-        // document.title = topic_name;
-    </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZP4LTMX13J"></script>
     <script>
@@ -349,16 +344,12 @@ if (!($topic = get_topic($tid))) {
     <div id="game_title_container" class="container">
         <div class="row">
             <div class="col-12">
-                <h1 id="topic_name" class="text-center page_header"></h1>
+                <h1 class="text-center page_header"><?php echo $topic['topic_name']; ?></h1>
             </div>
         </div>
         <div class="row mb-5">
             <div class="col-12">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p><?php echo $topic['description'] ?></p>
             </div>
         </div>
         <div class="row">
@@ -367,7 +358,7 @@ if (!($topic = get_topic($tid))) {
             </div>
         </div>
     </div>
-    <div id="game_container" class="container" style="display: none;">
+    <div id="game_container" class="container" style="display:none">
         <div id="payout_layout">
             <div class="row mb-3">
                 <div class="col-12 text-center">
@@ -486,7 +477,7 @@ if (!($topic = get_topic($tid))) {
                     <div id="new_game" class="hexagon_container hexagon_nav mx-auto d-none game_over_button">
                         NEW GAME
                     </div>
-                    <a class="hexagon_container hexagon_nav mx-auto d-none game_over_button" href="index.html">
+                    <a class="hexagon_container hexagon_nav mx-auto d-none game_over_button" href="topic.php?tid=<?php echo $_GET['tid'] ?>">
                         MAIN MENU
                     </a>
                 </div>
@@ -501,7 +492,7 @@ if (!($topic = get_topic($tid))) {
             <div class="row mb-3 question_div">
                 <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
                     <div id="question_text">
-                        test testtest testtest testtest testtest testtest testtest test
+                        <p class="m-0"></p>
                     </div>
                 </div>
             </div>
@@ -549,14 +540,13 @@ if (!($topic = get_topic($tid))) {
             </div>
         </div>
     </div>
-
     <div id="millionaire_win" class="d-none">
         <div id="win_banner_container" class="vertical_align_content">
             <div id="win_banner" class="michroma_font">MILLIONAIRE</div>
         </div>
         <div id="close_win_banner" class="hexagon_container hexagon_nav mx-auto">CLOSE</div>
     </div>
-    <div id="btn_music" class="music_off">
+    <div id="btn_music" class="music_on">
         <span id="music_on" class="material-icons">music_note</span>
         <span id="music_off" class="material-icons">music_off</span>
         <div class="d-none">
@@ -581,8 +571,10 @@ if (!($topic = get_topic($tid))) {
     <script src="js/ajax.js"></script>
     <script src="js/timer.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/cookie.js"></script>
     <script>
         const TIME_LIMIT_SECONDS = 30;
+        const SOUND_COOKIE_NAME = 'sound_on';
 
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
         function getRandomIntInclusive(min, max) {
@@ -595,7 +587,7 @@ if (!($topic = get_topic($tid))) {
             var answer_text = Question.a0;
 
             var answer_no = parseInt($(".answer_text").filter(function() {
-                return $(this).text() === Question.a0;
+                return $(this).html() === Question.a0;
             }).parent().attr('id').replace('answer', ''));
 
             var remove1;
@@ -620,12 +612,13 @@ if (!($topic = get_topic($tid))) {
         }
 
         function change_question(Question) {
-            var answers = shuffleArray([Question.a0, Question.a1, Question.a2, Question.a3]);
-            $('#question_text').text(Question.question);
+            // var answers = shuffleArray([Question.a0, Question.a1, Question.a2, Question.a3]);
+            var answers = [Question.a0, Question.a1, Question.a2, Question.a3];
+            $('#question_text > p').html(Question.question);
             reset_game_layout();
 
             for (var i = 0; i < answers.length; i++) {
-                $('#answer' + i + '>.answer_text').text(answers[i]);
+                $('#answer' + i + '>.answer_text').html(answers[i]);
 
                 // if answer text too long, need to shrink font size
                 if (answers[i].length > 65) {
@@ -746,6 +739,14 @@ if (!($topic = get_topic($tid))) {
         }
 
         $(document).ready(function() {
+            var sound_cookie = get_cookie(SOUND_COOKIE_NAME);
+
+            if (sound_cookie === null) {
+                $('#btn_music').removeClass('music_off').addClass('music_on');
+            } else {
+                $('#btn_music').removeClass('music_on').addClass('music_off');
+            }
+
             $('audio').each(function(index, elem) {
                 // lower the volume. default is full volume which is very loud
                 elem.volume = 0.5;
@@ -753,21 +754,14 @@ if (!($topic = get_topic($tid))) {
 
             var used_lifeline = [];
             var CurrentQuestion;
-            var question_index = 14;
+            var question_index = 0;
             var questions = [];
             var spare_question;
             var timer;
 
             const urlParams = new URLSearchParams(window.location.search);
-            // if (!urlParams.has("topic") || !urlParams.has("tid")) {
-            //     // no topic id and topic name
-            //     window.location.assign("index.html");
-            // }
-
-            const topic_name = urlParams.get("topic");
-            $("#topic_name").text(topic_name);
-
-            update_payout_table(question_index);
+            const topic_id = urlParams.get('tid');
+            const chapter_ids = urlParams.get('chapter').split(',');
 
             $('#start_game').on('click', function() {
                 reset_game();
@@ -776,9 +770,15 @@ if (!($topic = get_topic($tid))) {
                 });
                 $('#game_title_container').fadeOut(function() {
                     $('#game_container').fadeIn(function() {
+                        var data = {
+                            topic_id: topic_id,
+                            chapter_ids: chapter_ids,
+                            limit: 16
+                        };
+
                         doAjax("get",
                             "ajax.php", {
-                                start_game: urlParams.get("tid")
+                                get_questions_for_game: JSON.stringify(data)
                             },
                             function() {},
                             function(response) {
@@ -825,7 +825,6 @@ if (!($topic = get_topic($tid))) {
             $('.answer_button').on('click', function() {
                 timer.stopTimer();
                 var selected_answer = $(this);
-                var answer_text = selected_answer.children('.answer_text').text().toLowerCase();
 
                 // if current question already answered or 
                 // is hidden by 50:50 lifeline, do not respond
@@ -877,7 +876,7 @@ if (!($topic = get_topic($tid))) {
                     var is_correct = false;
 
                     $('.answer_button').each(function(index) {
-                        if ($(this).children('.answer_text').text() == CurrentQuestion.a0) {
+                        if ($(this).children('.answer_text').html() == CurrentQuestion.a0) {
                             // highlight correct answer
                             $(this).addClass('correct');
                             if ($(this).hasClass('selected')) {
@@ -922,20 +921,23 @@ if (!($topic = get_topic($tid))) {
             function reset_game() {
                 used_lifeline = [];
                 CurrentQuestion = null;
-                question_index = 0;
+                question_index = 0; // TODO set to 0
                 $('#continue_game').addClass('d-none');
                 $('.game_over_button').addClass('d-none');
                 $('#loading').removeClass('d-none');
+                $('.lifeline_used').removeClass('lifeline_used');
 
-                update_payout_table(0);
+                update_payout_table(question_index);
             }
 
             $('#btn_music').on('click', function() {
                 var btn_music = $(this);
                 if (btn_music.hasClass('music_on')) {
+                    set_cookie(SOUND_COOKIE_NAME, 'off', 365);
                     btn_music.removeClass('music_on').addClass('music_off');
                     pause_all_music();
                 } else {
+                    erase_cookie(SOUND_COOKIE_NAME);
                     btn_music.removeClass('music_off').addClass('music_on');
                     play_music_based_on_question_index(question_index);
 

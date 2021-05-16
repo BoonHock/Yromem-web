@@ -30,18 +30,56 @@ li {
   font-weight: 900;
 }
 
-a.game_mode_card {
-  text-align: center;
-  color: #3c91e6;
+#modal_game .card {
   border-color: #3c91e6;
 }
 
-a.game_mode_card:hover,
-a.game_mode_card:focus,
-a.game_mode_card:hover *,
-a.game_mode_card:focus * {
+#modal_game .card a {
+  color: #3c91e6;
+}
+
+#modal_game .card.disabled {
+  border-color: rgba(0, 0, 0, 0.125);
+}
+
+#modal_game .card.disabled a {
+  color: rgba(0, 0, 0, 0.125);
+}
+
+a.game_mode_card {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+#modal_game .card a.game_mode_card:hover,
+#modal_game .card a.game_mode_card:focus,
+#modal_game .card a.game_mode_card:hover *,
+#modal_game .card a.game_mode_card:focus * {
   text-decoration: none;
   color: #fff;
   background-color: #3c91e6;
+}
+
+#millionaire_mode_card .cover {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.125);
+}
+
+#millionaire_mode_card.disabled .cover {
+  display: block;
+}
+
+#millionaire_mode_card .spinner-border,
+#millionaire_mode_card .not_enough_questions_warning {
+  display: none;
+}
+
+#millionaire_mode_card.disabled.loading .spinner-border {
+  display: block;
+}
+
+#millionaire_mode_card.disabled.not_enough_questions .not_enough_questions_warning {
+  display: block;
 }
 /*# sourceMappingURL=topic.css.map */

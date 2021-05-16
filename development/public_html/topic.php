@@ -100,7 +100,6 @@ $r_chapter = get_chapters($tid);
             </div>
         </div>
     </div>
-    <!-- Modal -->
     <div class="modal fade" id="modal_game" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -112,35 +111,50 @@ $r_chapter = get_chapters($tid);
                 </div>
                 <div class="modal-body">
                     <div class="card-deck mb-3">
-                        <a class="card game_mode_card" data-mode="standard" href="#">
-                            <div class="card-body">
-                                <h5 class="card-title">Standard</h5>
-                                <p class="card-text">
-                                    Answer questions with no time limit.
-                                </p>
+                        <div class="card">
+                            <a class="game_mode_card" data-mode="standard" href="#">
+                                <div class="card-body">
+                                    <h5 class="card-title">Standard</h5>
+                                    <p class="card-text">
+                                        Answer questions with no time limit.
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a class="game_mode_card" data-mode="sprint" href="#">
+                                <div class="card-body">
+                                    <h5 class="card-title">Sprint</h5>
+                                    <p class="card-text">
+                                        Answer as many questions as possible within one minute!
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card disabled" id="millionaire_mode_card">
+                            <div class="cover">
+                                <div class="d-flex align-items-center justify-content-center h-100 text-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <span class="not_enough_questions_warning">Not enough questions. Try selecting more chapters.</span>
+                                </div>
                             </div>
-                        </a>
-                        <a class="card game_mode_card" data-mode="sprint" href="#">
-                            <div class="card-body">
-                                <h5 class="card-title">Sprint</h5>
-                                <p class="card-text">
-                                    Answer as many questions as possible within one minute!
-                                </p>
-                            </div>
-                        </a>
-                        <a class="card game_mode_card" data-mode="millionaire" href="#">
-                            <div class="card-body">
-                                <h5 class="card-title">Millionaire</h5>
-                                <p class="card-text">
-                                    Answer 15 questions correctly to win ONE MILLION DOLLARS! The money is not real though...
-                                </p>
-                            </div>
-                        </a>
+                            <a class="game_mode_card" data-mode="millionaire" href="#">
+                                <div class="card-body">
+                                    <h5 class="card-title">Millionaire</h5>
+                                    <p class="card-text">
+                                        Answer 15 questions correctly to win ONE MILLION DOLLARS! The money is not real though...
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="js/ajax.js"></script>
     <script>
         var topic_id = <?php echo $topic['topic_id']; ?>;
 
@@ -195,6 +209,30 @@ $r_chapter = get_chapters($tid);
                             $(this).attr('href', encodeURI('game.php?tid=' + topic_id + '&chapter=' + chapter_id_join + '&mode=' + $(this).attr('data-mode')));
                         }
                     });
+
+                    var data = {
+                        topic_id: topic_id,
+                        chapter_ids: selected_chapters
+                    };
+
+                    var millionaire_mode_card = $('#millionaire_mode_card');
+                    millionaire_mode_card.removeClass('not_enough_questions').addClass('loading disabled');
+
+                    doAjax("get",
+                        "ajax.php", {
+                            count_chapter_questions: JSON.stringify(data)
+                        },
+                        function() {},
+                        function(response) {
+                            var count = parseInt(response);
+
+                            millionaire_mode_card.removeClass('loading');
+                            if (count >= 15) {
+                                millionaire_mode_card.removeClass('disabled');
+                            } else {
+                                millionaire_mode_card.addClass('not_enough_questions');
+                            }
+                        });
                     $('#modal_game').modal();
                 }
             });
