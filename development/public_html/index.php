@@ -17,6 +17,20 @@ $r_topics = get_topics();
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MTEPBP5X9W"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-MTEPBP5X9W');
+    </script>
+
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -29,7 +43,6 @@ $r_topics = get_topics();
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://kit.fontawesome.com/c55d52918e.js" crossorigin="anonymous"></script>
-
     <link href="css/main.css" rel="stylesheet">
     <link href="css/index.css" rel="stylesheet">
 </head>

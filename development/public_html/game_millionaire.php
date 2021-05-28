@@ -28,14 +28,17 @@ if (!($topic = get_topic($tid))) {
     <meta name="og:image" content="img/favicon.ico" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZP4LTMX13J"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MTEPBP5X9W"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
-        gtag('config', 'G-ZP4LTMX13J');
-    </script> -->
+        gtag('config', 'G-MTEPBP5X9W');
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
