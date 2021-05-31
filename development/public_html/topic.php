@@ -27,9 +27,10 @@ $r_chapter = get_chapters($tid);
 <head>
     <title><?php echo $topic['topic_name']; ?></title>
     <meta name="description" content="Making learning fun and exciting." />
-    <meta name="og:title" content="Yromem - <?php echo $topic['topic_name']; ?>" />
-    <meta name="og:description" content="Making learning fun and exciting." />
-    <meta name="og:image" content="http://yromem.com/img/logo_round.png" />
+    <meta property="og:title" content="Yromem - Study for SPM while playing" />
+    <meta property="og:description" content="Making learning fun and exciting." />
+    <meta property="og:image" content="http://yromem.com/img/logo_round.png" />
+    <meta property="og:type" content="website" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
