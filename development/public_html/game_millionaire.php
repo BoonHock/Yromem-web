@@ -22,10 +22,10 @@ if (!($topic = get_topic($tid))) {
 
 <head>
     <title><?php echo $topic['topic_name']; ?></title>
-    <meta name="description" content="Studying shouldn't be boring! Play quizzes in different modes to make your learning journey fun and enjoyable." />
+    <meta name="description" content="Making learning fun and exciting." />
     <meta name="og:title" content="Yromem - <?php echo $topic['topic_name']; ?>" />
-    <meta name="og:description" content="Studying shouldn't be boring! Play quizzes in different modes to make your learning journey fun and enjoyable." />
-    <meta name="og:image" content="img/favicon.ico" />
+    <meta name="og:description" content="Making learning fun and exciting." />
+    <meta name="og:image" content="img/logo_round.png" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MTEPBP5X9W"></script>

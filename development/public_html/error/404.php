@@ -1,17 +1,10 @@
-<?php
-
-require_once '../db/topic.php';
-
-$r_topics = get_topics();
-?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Yromem - Study for SPM while playing</title>
+    <title>404 - Yromem</title>
     <meta name="description" content="Making learning fun and exciting." />
-    <meta name="og:title" content="Yromem - Study for SPM while playing" />
+    <meta name="og:title" content="404 - Yromem" />
     <meta name="og:description" content="Making learning fun and exciting." />
     <meta name="og:image" content="/img/logo_round.png" />
 
@@ -31,7 +24,7 @@ $r_topics = get_topics();
         gtag('config', 'G-MTEPBP5X9W');
     </script>
 
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -43,24 +36,21 @@ $r_topics = get_topics();
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://kit.fontawesome.com/c55d52918e.js" crossorigin="anonymous"></script>
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
+
+    <link href="/css/main.css" rel="stylesheet">
 </head>
 
 <body>
-    <?php include('../includes/nav.html'); ?>
+    <?php include('../../includes/nav.html'); ?>
     <div class="container">
         <div class="row mt-3">
             <div class="col-12">
-                <h4 class="section_title font-weight-bold font-italic mb-4 d-flex">SPM</h4>
-                <?php foreach ($r_topics as $topic) { ?>
-                    <a class="card border-primary mb-3" href="topic.php?tid=<?php echo $topic['topic_id'] ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $topic['topic_name'] ?></h5>
-                            <p class="card-text"><?php echo $topic['description'] ?></p>
-                        </div>
-                    </a>
-                <?php } ?>
+                <p>
+                    <span class="material-icons" style="font-size: 3em;">
+                        sentiment_very_dissatisfied
+                    </span>
+                </p>
+                <h1>Oops... What you are looking for is nowhere to be found...</h1>
             </div>
         </div>
     </div>

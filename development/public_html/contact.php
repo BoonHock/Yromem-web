@@ -1,19 +1,12 @@
-<?php
-
-require_once '../db/topic.php';
-
-$r_topics = get_topics();
-?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Yromem - Study for SPM while playing</title>
+    <title>Contact - Yromem</title>
     <meta name="description" content="Making learning fun and exciting." />
-    <meta name="og:title" content="Yromem - Study for SPM while playing" />
+    <meta name="og:title" content="Contact - Yromem" />
     <meta name="og:description" content="Making learning fun and exciting." />
-    <meta name="og:image" content="/img/logo_round.png" />
+    <meta name="og:image" content="img/favicon.ico" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -43,8 +36,8 @@ $r_topics = get_topics();
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://kit.fontawesome.com/c55d52918e.js" crossorigin="anonymous"></script>
+
     <link href="css/main.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
 </head>
 
 <body>
@@ -52,15 +45,11 @@ $r_topics = get_topics();
     <div class="container">
         <div class="row mt-3">
             <div class="col-12">
-                <h4 class="section_title font-weight-bold font-italic mb-4 d-flex">SPM</h4>
-                <?php foreach ($r_topics as $topic) { ?>
-                    <a class="card border-primary mb-3" href="topic.php?tid=<?php echo $topic['topic_id'] ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $topic['topic_name'] ?></h5>
-                            <p class="card-text"><?php echo $topic['description'] ?></p>
-                        </div>
-                    </a>
-                <?php } ?>
+                <h1>Contact</h1>
+                <p>Have something to tell us? Just reach us via the form below:</p>
+                <div style="height: 100vh;">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSevhuR-K95QcB4aoAsj18C05BGEp4KTuJzwuNeX_mc9I0cCfA/viewform?embedded=true" width="640" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                </div>
             </div>
         </div>
     </div>
