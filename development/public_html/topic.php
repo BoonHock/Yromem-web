@@ -29,7 +29,7 @@ $r_chapter = get_chapters($tid);
     <meta name="description" content="Making learning fun and exciting." />
     <meta name="og:title" content="Yromem - <?php echo $topic['topic_name']; ?>" />
     <meta name="og:description" content="Making learning fun and exciting." />
-    <meta name="og:image" content="img/logo_round.png" />
+    <meta name="og:image" content="http://yromem.com/img/logo_round.png" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

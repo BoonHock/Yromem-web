@@ -25,7 +25,7 @@ if (!($topic = get_topic($tid))) {
     <meta name="description" content="Making learning fun and exciting." />
     <meta name="og:title" content="Yromem - <?php echo $topic['topic_name']; ?>" />
     <meta name="og:description" content="Making learning fun and exciting." />
-    <meta name="og:image" content="img/logo_round.png" />
+    <meta name="og:image" content="http://yromem.com/img/logo_round.png" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MTEPBP5X9W"></script>
